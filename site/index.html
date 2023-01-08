@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dispoflare</title>
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
-    <script async="async" src="assets/script.ts"></script>
+    <script async="async" src="assets/address.mjs"></script>
 </head>
 <body>
     <header class="container">
@@ -17,7 +17,7 @@
     <main class="container">
         <section id="add">
             <!-- <h2>Add a new address</h2> -->
-            <form action="/address">
+            <form action="/address" method="post">
                 <div class="grid">
                     <label for="address">Address
                         <input type="text" name="address" placeholder="Email address" aria-label="Email address" required="">

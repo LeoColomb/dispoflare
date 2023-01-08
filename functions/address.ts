@@ -1,30 +1,28 @@
-const API_ENDPOINT = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/email/routing/rules`
-
-export const onRequestGet = async () => {
-    return await fetch(API_ENDPOINT, {
+export const onRequestGet = async ({ env }) => {
+    return fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-Auth-Key': API_KEY,
+            'Authorization': `Bearer ${env.API_KEY}`,
         },
     })
 }
 
-export const onRequestPost = async ({ request }) => {
+export const onRequestPost = async ({ env, request }) => {
     const address = (await request.formData()).get('address')
 
-    return await fetch(API_ENDPOINT, {
+    const result = await fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-Auth-Key': API_KEY,
+            'Authorization': `Bearer ${env.API_KEY}`,
         },
         body: JSON.stringify({
             actions: [
                 {
                     type: 'forward',
                     value: [
-                        DEST_ADDR,
+                        env.DEST_ADDR,
                     ],
                 },
             ],
@@ -33,19 +31,25 @@ export const onRequestPost = async ({ request }) => {
                 {
                     field: 'to',
                     type: 'literal',
-                    value: `${address}@${ZONE_DOMAIN}`,
+                    value: `${address}@${env.ZONE_DOMAIN}`,
                 },
             ],
         })
-    })  
+    })
+
+    if ((await result.json()).success) {
+        return Response.redirect('/', 301)
+    }
+
+    return result
 }
 
-export const onRequestDelete = async ({ request }) => {
-    return await fetch(`${API_ENDPOINT}/${request.tag}`, {
+export const onRequestDelete = async ({ env, request }) => {
+    return fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules/${request.tag}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'X-Auth-Key': API_KEY,
+            'Authorization': `Bearer ${env.API_KEY}`,
         },
     })
 }
