@@ -9,7 +9,7 @@ export const onRequestGet = async ({ env }) => {
 }
 
 export const onRequestPost = async ({ env, request }) => {
-    const address = (await request.formData()).get('address')
+    const data = (await request.formData())
 
     const result = await fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules`, {
         method: 'POST',
@@ -31,9 +31,12 @@ export const onRequestPost = async ({ env, request }) => {
                 {
                     field: 'to',
                     type: 'literal',
-                    value: `${address}@${env.ZONE_DOMAIN}`,
+                    value: `${data.get('address')}@${env.ZONE_DOMAIN}`,
                 },
             ],
+            name: JSON.stringify({
+                expire: data.get('date')
+            })
         })
     })
 
