@@ -1,7 +1,7 @@
 const API_ENDPOINT = `https://api.cloudflare.com/client/v4/zones/${ZONE_ID}/email/routing/rules`
 
-export const onRequestGet: PagesFunction<Env> = async () => {
-    return await fetch(API_ENDPOINT, { 
+export const onRequestGet = async () => {
+    return await fetch(API_ENDPOINT, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export const onRequestGet: PagesFunction<Env> = async () => {
     })
 }
 
-export const onRequestPost: PagesFunction<Env> = async ({ request }) => {
+export const onRequestPost = async ({ request }) => {
     const address = (await request.formData()).get('address')
 
     return await fetch(API_ENDPOINT, {
@@ -37,11 +37,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request }) => {
                 },
             ],
         })
-    })
+    })  
 }
 
-export const onRequestDelete: PagesFunction<Env> = async ({ request }) => {
-    return await fetch(`${API_ENDPOINT}/${request.tag}`, { 
+export const onRequestDelete = async ({ request }) => {
+    return await fetch(`${API_ENDPOINT}/${request.tag}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
