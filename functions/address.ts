@@ -11,7 +11,7 @@ export const onRequestGet = async ({ env }) => {
 export const onRequestPost = async ({ env, request }) => {
     const data = (await request.formData())
 
-    const result = await fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules`, {
+    const response = await fetch(`https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -40,11 +40,11 @@ export const onRequestPost = async ({ env, request }) => {
         })
     })
 
-    if ((await result.json()).success) {
+    const result = await response.json()
+    if (result.success) {
         return Response.redirect('/', 301)
     }
-
-    return result
+    return Response.redirect(`/?error=${result.messages[0].code}&message=${encodeURI(result.messages[0].message)}`, 301)
 }
 
 export const onRequestDelete = async ({ env, request }) => {

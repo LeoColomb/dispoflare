@@ -6,14 +6,22 @@ const init = async () => {
     list.replaceChildren();
 
     (await response.json()).result.forEach(element => {
-        const name = element.matchers.shift().value
+        const address = element.matchers.shift().value
+        let metadata
+        try {
+            metadata = JSON.parse(element.name)
+        } catch {
+            metadata = null
+        }
 
-        if (name) {
+        if (address) {
             const h4 = document.createElement('h4')
-            h4.appendChild(document.createTextNode(name))
+            h4.appendChild(document.createTextNode(address))
+            const time = document.createElement('time')
+            time.appendChild(document.createTextNode(metadata?.expire))
 
             const article = document.createElement('article')
-            article.appendChild(h4)
+            article.append(h4, time)
 
             list.appendChild(article)
         }
