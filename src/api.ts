@@ -1,4 +1,4 @@
-export const onRequestGet = async ({ env }) => {
+export const getRules = async (env: Env): Promise<Response> => {
   return fetch(
     `https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules`,
     {
@@ -11,7 +11,10 @@ export const onRequestGet = async ({ env }) => {
   )
 }
 
-export const onRequestPost = async ({ env, request }) => {
+export const postRule = async (
+  request: Request,
+  env: Env,
+): Promise<Response> => {
   const data = await request.formData()
 
   const response = await fetch(
@@ -56,7 +59,26 @@ export const onRequestPost = async ({ env, request }) => {
   )
 }
 
-export const onRequestDelete = async ({ env, request }) => {
+export const putRule = async (
+  request: Request,
+  env: Env,
+): Promise<Response> => {
+  return fetch(
+    `https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules/${request.tag}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${env.API_KEY}`,
+      },
+    },
+  )
+}
+
+export const deleteRule = async (
+  request: Request,
+  env: Env,
+): Promise<Response> => {
   return fetch(
     `https://api.cloudflare.com/client/v4/zones/${env.ZONE_ID}/email/routing/rules/${request.tag}`,
     {

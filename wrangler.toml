@@ -2,8 +2,15 @@ name = "dispoflare"
 main = "src/index.ts"
 compatibility_date = "2023-01-18"
 
+[vars]
+# The necessary secrets are:
+# - API_KEY
+# - ZONE_ID
+# - GTOKEN_KID
+# Run `echo <VALUE> | wrangler secret put <NAME>` for each of these
+
 [site]
 bucket = "./public"
 
 [triggers]
-crons = [ "1 * * * *" ]
+crons = [ "0 */12 * * *" ]

@@ -1,0 +1,18 @@
+export interface Env {
+  // Bindings to KV.
+  // https://developers.cloudflare.com/workers/runtime-apis/kv/
+  __STATIC_CONTENT: KVNamespace
+
+  // Bindings to Durable Object.
+  // https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
+  // MY_DURABLE_OBJECT: DurableObjectNamespace
+
+  // Bindings to R2.
+  // https://developers.cloudflare.com/workers/runtime-apis/r2/
+  // MY_BUCKET: R2Bucket
+
+  // Bindings to Variables.
+  // https://developers.cloudflare.com/workers/platform/environment-variables/
+  API_KEY: String
+  ZONE_ID: String
+}

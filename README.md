@@ -37,7 +37,14 @@ Dispoflare is an app using Cloudflare products to host and manage disposable ema
 - Create a Cloudflare API Token with Cloudflare Pages Edit permission
   - Set a GitHub Actions secret `CF_API_TOKEN` with this token value
 - Trigger a GitHub Actions run for the Deploy workflow
-- (Optionnal) Enable access restrictions with Cloudflare Access in the Cloudflare Pages project settings
+- (Optional) Enable access restrictions with Cloudflare Access in the Cloudflare Pages project settings
+
+## Development
+
+- Run `npm i` in your terminal to install all dependencies
+- Run `npm run start` in your terminal to start a development server
+- Open a browser tab at http://localhost:8787/ to see your worker in action
+- Run `npm run deploy` to publish your worker
 
 ## License
 

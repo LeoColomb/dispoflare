@@ -1,9 +1,8 @@
 const init = async () => {
-  const response = await fetch('/address')
+  const response = await fetch('/addresses')
   const list = document.getElementById('list')
 
   list.replaceChildren()
-
   ;(await response.json()).result.forEach((element) => {
     const address = element.matchers.shift().value
     let metadata
