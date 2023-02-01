@@ -8,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
-import { withSentry } from '@sentry/remix'
 
 export const links: LinksFunction = () => {
   return [
@@ -26,7 +25,7 @@ export const meta: MetaFunction = () => ({
   viewport: 'width=device-width,initial-scale=1',
 })
 
-function App() {
+export default function App() {
   return (
     <html lang="en">
       <head>
@@ -42,8 +41,6 @@ function App() {
     </html>
   )
 }
-
-export default withSentry(App)
 
 export function CatchBoundary() {
   const caught = useCatch();

@@ -4,8 +4,7 @@ import * as rulesApi from 'sdk/rules'
 import * as zonesApi from 'sdk/zones'
 
 function shouldAct(date: Date | string | undefined): Boolean {
-  const now = new Date()
-  return Boolean(date && new Date(date) <= now)
+  return Boolean(date && new Date(date) <= new Date())
 }
 
 export const scheduled = async (
@@ -23,21 +22,24 @@ export const scheduled = async (
     const zones = await zonesApi.list(env)
     const rules = await rulesApi.list(zones, env)
 
-    rules.forEach((rule) => {
-      if (rule.enabled && shouldAct(rule.data?.expire)) {
-        rule.enabled = false
-        rulesApi.put(rule, env)
-      } else if (shouldAct(rule.data?.remove)) {
-        rulesApi.remove(rule, env)
-      } else if (shouldAct(rule.data?.deprecate)) {
-        rule.actions = [
-          {
-            type: 'worker',
-            value: ['dispoflare'],
-          },
-        ]
-      }
-    })
+    await Promise.all(
+      rules.map(async (rule) => {
+        if (rule.enabled && shouldAct(rule.data?.expire)) {
+          rule.enabled = false
+          await rulesApi.put(rule, env)
+        } else if (shouldAct(rule.data?.remove)) {
+          await rulesApi.remove(rule, env)
+        } else if (shouldAct(rule.data?.deprecate)) {
+          rule.actions = [
+            {
+              type: 'worker',
+              value: ['dispoflare'],
+            },
+          ]
+          await rulesApi.put(rule, env)
+        }
+      }),
+    )
   } catch (err) {
     sentry.captureException(err)
     throw err
