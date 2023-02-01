@@ -1,4 +1,4 @@
-export interface Env {
+interface Env {
   // Bindings to KV.
   // https://developers.cloudflare.com/workers/runtime-apis/kv/
   __STATIC_CONTENT: KVNamespace
@@ -13,6 +13,7 @@ export interface Env {
 
   // Bindings to Variables.
   // https://developers.cloudflare.com/workers/platform/environment-variables/
-  API_KEY: String
-  ZONE_ID: String
+  API_TOKEN: string
+  ACCOUNT_ID: string
+  SENTRY_DSN: string
 }
