@@ -1,4 +1,7 @@
-import { createRequestHandler } from '@remix-run/cloudflare-workers'
+import {
+  createRequestHandler,
+  handleAsset,
+} from '@remix-run/cloudflare-workers'
 import * as build from '@remix-run/dev/server-build'
 import { Toucan } from 'toucan-js'
 import { RewriteFrames } from '@sentry/integrations'
@@ -23,18 +26,25 @@ export const fetch = async (
     request,
     integrations: [new RewriteFrames({ root: '/' })],
   })
+  const event: FetchEvent = {
+    env,
+    params: {},
+    request,
+    waitUntil: context.waitUntil,
+    next: () => {
+      throw new Error('next() called in Worker')
+    },
+    functionPath: '',
+    data: undefined,
+  }
   try {
-    return handleRequest({
-      env,
-      params: {},
-      request,
-      waitUntil: context.waitUntil,
-      next: () => {
-        throw new Error('next() called in Worker')
-      },
-      functionPath: '',
-      data: undefined,
-    })
+    let response = await handleAsset(event, build)
+
+    if (!response) {
+      response = await handleRequest(event)
+    }
+
+    return response
   } catch (err) {
     sentry.captureException(err)
 

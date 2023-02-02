@@ -85,8 +85,8 @@ export function CatchBoundary() {
           <hgroup style={{ textAlign: 'center' }}>
             <h1>{caught.status}</h1>
             <h2>{caught.statusText}</h2>
-            <p>{caught.data}</p>
           </hgroup>
+          <article style={{ textAlign: 'center' }}>{caught.data}</article>
         </main>
         <Footer />
         <Scripts />
