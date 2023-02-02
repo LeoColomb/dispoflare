@@ -34,7 +34,7 @@ Dispoflare is an app using Cloudflare products to host and manage disposable ema
 [![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare)
 
 Make sure your Cloudflare API Token has the following permissions:
-|   |   |   |
+| | | |
 |---|---|---|
 |Account|Email Routing Addresses|Read|
 |Zone|Email Routing Rules|Edit|
@@ -47,7 +47,7 @@ Optionaly but recommanded, setup access restrictions with Cloudflare Access for 
 - Run `npm i` in your terminal to install all dependencies
 - Run `npm run deploy` to publish your worker
 - Create a Cloudflare API Token with following permissions:
-  |   |   |   |
+  | | | |
   |---|---|---|
   |Account|Email Routing Addresses|Read|
   |Zone|Email Routing Rules|Edit|
