@@ -43,7 +43,7 @@ export default function App() {
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useCatch()
 
   return (
     <div className="error-container">
@@ -51,5 +51,5 @@ export function CatchBoundary() {
         {caught.status} {caught.statusText}
       </h1>
     </div>
-  );
+  )
 }

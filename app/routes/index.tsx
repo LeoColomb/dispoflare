@@ -1,15 +1,11 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/cloudflare'
 import { json, redirect } from '@remix-run/cloudflare'
-import {
-  Form,
-  useLoaderData,
-  useActionData,
-  useTransition,
-} from '@remix-run/react'
+import { Form, useLoaderData, useNavigation } from '@remix-run/react'
 
-import { getRules, createRule } from '~/models/rule.server'
+import { createRule, getRules } from '~/models/rule.server'
 import { getZones } from '~/models/zone.server'
 import { getAddresses } from '~/models/address.server'
+import { Footer } from '~/components/Footer'
 import { Rule } from '~/components/Rule'
 
 export const action = async ({ request, context }: ActionArgs) => {
@@ -27,6 +23,7 @@ export const action = async ({ request, context }: ActionArgs) => {
 
 export const loader = async ({ context }: LoaderArgs) => {
   const zones = await getZones(context)
+
   return json({
     zones,
     addresses: await getAddresses(context),
@@ -36,9 +33,8 @@ export const loader = async ({ context }: LoaderArgs) => {
 
 export default function Index() {
   const { zones, addresses, rules } = useLoaderData<typeof loader>()
-  const actionData = useActionData<typeof action>()
-  const transition = useTransition()
-  const isCreating = Boolean(transition.submission)
+  const navigation = useNavigation()
+  const isCreating = navigation.state === 'submitting'
 
   return (
     <div>
@@ -91,22 +87,32 @@ export default function Index() {
               </label>
               <button
                 type="submit"
+                aria-busy={isCreating}
                 disabled={isCreating}
-                name="_actions"
-                value="create"
               >
                 {isCreating ? 'Creating...' : 'Create a disposable address'}
               </button>
             </Form>
           </article>
         </section>
-        <hr />
         <section id="list">
-          {/* <h2>Addresses list</h2> */}
-          {rules.map((rule) => (
-            <Rule rule={rule} />
-          ))}
+          <table role="grid">
+            <thead>
+              <tr>
+                <th scope="col">Rule address</th>
+                <th scope="col">Status</th>
+                <th scope="col">Expire on</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {rules.map((rule) => (
+                <Rule rule={rule} />
+              ))}
+            </tbody>
+          </table>
         </section>
+        <Footer />
       </main>
     </div>
   )
