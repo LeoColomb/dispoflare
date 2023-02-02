@@ -26,6 +26,7 @@ export const fetch = async (
     request,
     integrations: [new RewriteFrames({ root: '/' })],
   })
+  sentry.configureScope((scope) => scope.setExtras(env))
   const event: FetchEvent = {
     env,
     params: {},

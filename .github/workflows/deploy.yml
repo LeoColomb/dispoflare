@@ -19,7 +19,7 @@ jobs:
       - name: Install NPM packages
         run: npm ci
 
-      - name: Publish
+      - name: Publish to Cloudflare
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
@@ -30,3 +30,13 @@ jobs:
         env:
           API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Create a Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production
+          sourcemaps: ./build ./public
