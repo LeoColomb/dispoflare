@@ -6,6 +6,9 @@ import * as build from '@remix-run/dev/server-build'
 import { Toucan } from 'toucan-js'
 import { RewriteFrames } from '@sentry/integrations'
 
+import manifestJSON from '__STATIC_CONTENT_MANIFEST'
+const assetManifest = JSON.parse(manifestJSON)
+
 const handleRequest = createRequestHandler({
   build,
   getLoadContext: (context) => ({
@@ -38,7 +41,10 @@ export const fetch = async (
     data: undefined,
   }
   try {
-    let response = await handleAsset(event, build)
+    let response = await handleAsset(event, build, {
+      ASSET_NAMESPACE: env.__STATIC_CONTENT,
+      ASSET_MANIFEST: assetManifest,
+    })
 
     if (!response) {
       response = await handleRequest(event)
