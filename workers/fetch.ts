@@ -42,7 +42,7 @@ export const fetch = async (
     data: undefined,
   }
   try {
-    let response = await handleAsset(
+    const response = await handleAsset(
       event,
       build,
       env.__STATIC_CONTENT
@@ -54,7 +54,7 @@ export const fetch = async (
     )
 
     if (!response) {
-      response = await handleRequest(event)
+      return handleRequest(event)
     }
 
     return response
