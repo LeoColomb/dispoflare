@@ -31,6 +31,9 @@ jobs:
           API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
 
+      - name: Generate sourcemap
+        run: npm run build -- --sourcemap
+
       - name: Create a Sentry release
         uses: getsentry/action-release@v1
         continue-on-error: true
@@ -41,3 +44,4 @@ jobs:
         with:
           environment: production
           sourcemaps: ./build ./public
+          set_commits: skip
