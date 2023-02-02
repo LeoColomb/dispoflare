@@ -6,9 +6,6 @@ import * as build from '@remix-run/dev/server-build'
 import { Toucan } from 'toucan-js'
 import { RewriteFrames } from '@sentry/integrations'
 
-import manifestJSON from '__STATIC_CONTENT_MANIFEST'
-const assetManifest = JSON.parse(manifestJSON)
-
 const handleRequest = createRequestHandler({
   build,
   getLoadContext: (context) => ({
@@ -43,7 +40,7 @@ export const fetch = async (
   try {
     let response = await handleAsset(event, build, {
       ASSET_NAMESPACE: env.__STATIC_CONTENT,
-      ASSET_MANIFEST: assetManifest,
+      ASSET_MANIFEST: JSON.parse(env.__STATIC_CONTENT_MANIFEST),
     })
 
     if (!response) {
@@ -51,9 +48,12 @@ export const fetch = async (
     }
 
     return response
-  } catch (err) {
+  } catch (err: any) {
     sentry.captureException(err)
 
+    return new Response(err.message || err.toString(), {
+      status: 500,
+    })
     return new Response('Something went wrong! Team has been notified.', {
       status: 500,
     })
