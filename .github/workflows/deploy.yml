@@ -27,7 +27,6 @@ jobs:
           secrets: |
             API_TOKEN
             ACCOUNT_ID
-          environment: production
         env:
           API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
