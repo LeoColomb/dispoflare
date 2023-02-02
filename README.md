@@ -1,4 +1,4 @@
-# Dispoflare
+# Dispo<em>flare</em>
 
 > Disposable email addresses on the fly powered by Cloudflare
 
@@ -22,29 +22,44 @@ Dispoflare is an app using Cloudflare products to host and manage disposable ema
 - Backend end: [Cloudflare Workers](https://workers.cloudflare.com/)
 - Authentication: [Cloudflare Access](https://www.cloudflare.com/products/zero-trust/access/)
 
-## Requirements
-
-- Free Cloudflare account (or above)
-- One domain (or more), DNS-managed by Cloudflare
-
 ## Usage
+
+### Requirements
+
+- Make sure you have a Cloudflare account. A free account is suffiscient.
+- At least one domain name must be DNS-managed by your Cloudflare account.
+
+### Automatic
 
 [![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare)
 
-- Create a [Cloudflare Pages project](https://pages.dev/) with Direct Upload option
-  - Set a GitHub Actions variables `PROJECT_NAME` with this Cloudflare Pages project name
-  - Set a GitHub Actions secret `CF_ACCOUNT_ID` with the Cloudflare Account ID this project relates
-- Create a Cloudflare API Token with Cloudflare Pages Edit permission
-  - Set a GitHub Actions secret `CF_API_TOKEN` with this token value
-- Trigger a GitHub Actions run for the Deploy workflow
-- (Optional) Enable access restrictions with Cloudflare Access in the Cloudflare Pages project settings
+Make sure your Cloudflare API Token has the following permissions:
+|   |   |   |
+|---|---|---|
+|Account|Email Routing Addresses|Read|
+|Zone|Email Routing Rules|Edit|
+|Zone|Zone|Read|
+
+Optionaly but recommanded, setup access restrictions with Cloudflare Access for your app.
+
+### Manual
+
+- Run `npm i` in your terminal to install all dependencies
+- Run `npm run deploy` to publish your worker
+- Create a Cloudflare API Token with following permissions:
+  |   |   |   |
+  |---|---|---|
+  |Account|Email Routing Addresses|Read|
+  |Zone|Email Routing Rules|Edit|
+  |Zone|Zone|Read|
+
+- (Optional, recommanded) Setup access restrictions with Cloudflare Access for your app.
 
 ## Development
 
 - Run `npm i` in your terminal to install all dependencies
 - Run `npm run start` in your terminal to start a development server
 - Open a browser tab at http://localhost:8787/ to see your worker in action
-- Run `npm run deploy` to publish your worker
 
 ## License
 
