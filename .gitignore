@@ -1,1 +1,10 @@
-node_modules/
+node_modules
+
+/.cache
+/build
+/dist
+/public/build
+/.mf
+.env
+
+.dev.vars
