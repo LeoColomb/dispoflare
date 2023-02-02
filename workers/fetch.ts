@@ -21,13 +21,13 @@ export const fetch = async (
     dsn: env.SENTRY_DSN,
     context,
     request,
-    // integrations: [new RewriteFrames({ root: '/' })],
+    integrations: [new RewriteFrames({ root: '/' })],
   })
   try {
     return handleRequest({
       env,
       params: {},
-      request: new Request(request),
+      request,
       waitUntil: context.waitUntil,
       next: () => {
         throw new Error('next() called in Worker')

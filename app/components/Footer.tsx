@@ -1,10 +1,10 @@
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="container">
       <hr />
       <p style={{ textAlign: 'center' }}>
         <small>
-          Dispoflare ·{' '}
+          Dispo<em>flare</em> ·{' '}
           <a href="https://github.com/LeoColomb/dispoflare">GitHub</a> ·{' '}
           Licensed under{' '}
           <a

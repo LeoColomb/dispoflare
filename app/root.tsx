@@ -8,6 +8,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
+import { Footer } from './components/Footer'
+import { Nav } from './components/Nav'
 
 export const links: LinksFunction = () => {
   return [
@@ -33,10 +35,35 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Nav />
+        <main className="container" role="document">
+          <Outlet />
+        </main>
+        <Footer />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+      </body>
+    </html>
+  )
+}
+
+export function ErrorBoundary({ error }) {
+  console.error(error)
+  return (
+    <html>
+      <head>
+        <title>Oh no! · Dispoflare</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Nav />
+        <main className="container" role="document">
+          {JSON.stringify(error)}
+        </main>
+        <Footer />
+        <Scripts />
       </body>
     </html>
   )
@@ -46,10 +73,24 @@ export function CatchBoundary() {
   const caught = useCatch()
 
   return (
-    <div className="error-container">
-      <h1>
-        {caught.status} {caught.statusText}
-      </h1>
-    </div>
+    <html>
+      <head>
+        <title>Oh no! · Dispoflare</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <Nav />
+        <main className="container" role="document">
+          <hgroup style={{ textAlign: 'center' }}>
+            <h1>{caught.status}</h1>
+            <h2>{caught.statusText}</h2>
+            <p>{caught.data}</p>
+          </hgroup>
+        </main>
+        <Footer />
+        <Scripts />
+      </body>
+    </html>
   )
 }

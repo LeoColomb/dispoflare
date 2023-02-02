@@ -1,5 +1,5 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:linux",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node",
   "settings": {
     "[typescript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -23,5 +23,10 @@
     "esbenp.prettier-vscode",
     "streetsidesoftware.code-spell-checker",
     "bungcip.better-toml"
-  ]
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "node"
+    }
+  }
 }

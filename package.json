@@ -3,7 +3,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "remix build",
+    "build": "remix build --sourcemap",
     "start": "wrangler dev",
     "dev": "wrangler dev",
     "deploy": "wrangler publish",
