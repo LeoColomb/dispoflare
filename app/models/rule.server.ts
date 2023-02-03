@@ -14,9 +14,20 @@ export async function createRule(
     zone,
     address,
     expire,
-  }: { rule: string; zone: Zone; address: string; expire: string },
+    remove,
+  }: {
+    rule: string
+    zone: Zone
+    address: string
+    expire: string
+    remove: Date | boolean
+  },
   context: AppLoadContext,
 ): Promise<void> {
+  if (remove === true) {
+    remove = new Date(expire)
+    remove.setMonth(remove.getMonth() + 1)
+  }
   await rules.post(
     {
       actions: [
@@ -36,6 +47,7 @@ export async function createRule(
       name: JSON.stringify({
         dispoflare: true,
         expire,
+        remove,
       }),
     },
     zone,

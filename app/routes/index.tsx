@@ -13,7 +13,7 @@ export const action = async ({ request, context }: ActionArgs) => {
   const zone = JSON.parse(formData.get('zone'))
   const address = formData.get('address')
   const expire = formData.get('expire')
-  const remove = formData.get('remove')
+  const remove = !!formData.get('remove')
 
   await createRule({ rule, zone, address, expire, remove }, context)
 
