@@ -1,6 +1,6 @@
 import { Toucan } from 'toucan-js'
 
-import { list } from 'sdk/rules'
+import { list as listRules } from 'sdk/rules'
 
 export const email = async (
   message: EmailMessage,
@@ -13,10 +13,21 @@ export const email = async (
   })
 
   try {
-    const rules = await (await list(env)).json()
-    message.setReject('Expired')
+    const rules: Rule[] = await listRules(env)
+    const matchingRule: Rule | undefined = rules.find(
+      (rule) => rule.matchers[0].value === message.to,
+    )
+    if (matchingRule) {
+      const headers = new Headers([
+        ['X-Dispoflare-Deprecated', `expire=${matchingRule.data.expire}`],
+      ])
+
+      message.forward(matchingRule.data.forwardTo, headers)
+    }
   } catch (err) {
     sentry.captureException(err)
+
+    message.setReject('Processing Error')
     throw err
   }
 }

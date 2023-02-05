@@ -38,4 +38,5 @@ type DispoflareData = {
   expire: Date | string
   remove: Date | string | undefined
   deprecate: Date | string | undefined
+  forwardTo: string | undefined
 }
