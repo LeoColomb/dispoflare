@@ -22,38 +22,38 @@ Dispoflare is an app using Cloudflare products to host and manage disposable ema
 - Backend end: [Cloudflare Workers](https://workers.cloudflare.com/)
 - Authentication: [Cloudflare Access](https://www.cloudflare.com/products/zero-trust/access/)
 
-## Usage
+## Getting started
 
 ### Requirements
 
-- Make sure you have a Cloudflare account. A free account is suffiscient.
-- At least one domain name must be DNS-managed by your Cloudflare account.
+Dispoflare is a full-stack app running on top of Cloudflare platform.
+We are of course assuming that you have:
+* A Cloudflare account (click [here](https://dash.cloudflare.com/sign-up) if you don't)
+* At least one [zone](https://www.cloudflare.com/learning/dns/glossary/dns-zone/) using Cloudflare.
+  If you don't have a zone, you can use [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/).
 
-### Automatic
+All of the used Cloudflare products offer a [free plan](https://www.cloudflare.com/plans/) that allows to try them for personal or hobby projects.
 
-[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare)
+### Deploy
 
-Make sure your Cloudflare API Token has the following permissions:
-| | | |
-|---|---|---|
-|Account|Email Routing Addresses|Read|
-|Zone|Email Routing Rules|Edit|
-|Zone|Zone|Read|
+[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare&authed=true&apiTokenTmpl=%5B%7B%22key%22%3A%22page%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22access%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22email_routing_address%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22email_routing_rule%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22zone%22%2C%22type%22%3A%22read%22%7D%5D&apiTokenName=Dispoflare)
 
-Optionaly but recommanded, setup access restrictions with Cloudflare Access for your app.
+Please pay attention to all the steps involved in the installation process.
 
-### Manual
+- Authorize Workers to use your GitHub account.
+- Enter your **Account ID** (from the previous section)
+- Press the **Create token** button first, to create it, it will redirect you to a token template with all the required permissions pre-configured.
+  Then enter the **API token** in the form.
+- Fork the repository into your personal GitHub account.
+- Enable GitHub Actions.
+- Deploy.
 
-- Run `npm i` in your terminal to install all dependencies
-- Run `npm run deploy` to publish your worker
-- Create a Cloudflare API Token with following permissions:
-  | | | |
-  |---|---|---|
-  |Account|Email Routing Addresses|Read|
-  |Zone|Email Routing Rules|Edit|
-  |Zone|Zone|Read|
+### Access Policy
 
-- (Optional, recommanded) Setup access restrictions with Cloudflare Access for your app.
+**Dispoflare has no user registration.**
+
+Wildebeest uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
+It assumes that your users will register with another identity provider (Zero Trust supports [many providers](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/) or your custom one that implements [Generic SAML 2.0](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-saml/)).
 
 ## Development
 
