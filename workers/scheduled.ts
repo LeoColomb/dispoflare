@@ -30,6 +30,7 @@ export const scheduled = async (
         } else if (shouldAct(rule.data?.remove)) {
           await rulesApi.remove(rule, env)
         } else if (shouldAct(rule.data?.deprecate)) {
+          rule.data.forwardTo = rule.actions[0].value
           rule.actions = [
             {
               type: 'worker',
