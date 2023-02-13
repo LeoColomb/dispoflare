@@ -2,6 +2,8 @@
 
 > Disposable email addresses on the fly powered by Cloudflare
 
+![Dispoflare Illustration](.design/illustration.svg)
+
 ## About
 
 Dispoflare is an app using Cloudflare products to host and manage disposable email addresses.
