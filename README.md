@@ -20,8 +20,8 @@ Dispoflare is an app using Cloudflare products to host and manage disposable ema
 ### Cloudflare Platform
 
 - Email routing: [Cloudflare Email Routing](https://www.cloudflare.com/products/email-routing/)
-- Hosting: [Cloudflare Pages](https://pages.cloudflare.com/)
-- Backend end: [Cloudflare Workers](https://workers.cloudflare.com/)
+- Static hosting: [Cloudflare Pages](https://pages.cloudflare.com/)
+- Backend functions: [Cloudflare Workers](https://workers.cloudflare.com/)
 - Authentication: [Cloudflare Access](https://www.cloudflare.com/products/zero-trust/access/)
 
 ## Getting started
