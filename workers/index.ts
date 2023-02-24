@@ -1,11 +1,11 @@
 // https://developers.cloudflare.com/workers/
 
-import { fetch } from './fetch'
+// import { fetch } from './fetch'
 import { scheduled } from './scheduled'
 import { email } from './email'
 
 export default {
-  fetch,
+  // fetch,
   scheduled,
   email,
 } as ExportedHandler<Env>
