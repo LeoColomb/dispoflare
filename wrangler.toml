@@ -1,7 +1,7 @@
 name = "dispoflare"
 
 # workers_dev = true
-main = "workers/index.js"
+main = "workers/index.ts"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
 compatibility_date = "2023-01-18"
 
