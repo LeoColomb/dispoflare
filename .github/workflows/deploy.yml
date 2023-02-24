@@ -34,6 +34,13 @@ jobs:
       - name: Build Pages
         run: npm run build
 
+      - name: Init Cloudflare Pages
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create dispoflare
+
       - name: Publish to Cloudflare Pages
         uses: cloudflare/wrangler-action@2.0.0
         with:
@@ -59,5 +66,5 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          sourcemaps: ./build ./public
+          sourcemaps: ./functions ./pages/public
           set_commits: skip
