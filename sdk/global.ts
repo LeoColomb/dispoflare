@@ -9,7 +9,7 @@ export async function fetchAPI<T>(
       method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${env.API_TOKEN}`,
+        Authorization: `Bearer ${env.CLOUDFLARE_API_TOKEN}`,
       },
       body,
     })

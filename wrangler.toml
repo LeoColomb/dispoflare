@@ -7,8 +7,8 @@ compatibility_date = "2023-01-18"
 
 [vars]
 # The necessary secrets are:
-# - API_TOKEN
-# - ACCOUNT_ID
+# - CLOUDFLARE_API_TOKEN
+# - CLOUDFLARE_ACCOUNT_ID
 # - SENTRY_DSN
 # Run `echo <VALUE> | wrangler secret put <NAME>` for each of these
 

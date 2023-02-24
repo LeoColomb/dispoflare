@@ -13,7 +13,7 @@ interface Env {
 
   // Bindings to Variables.
   // https://developers.cloudflare.com/workers/platform/environment-variables/
-  API_TOKEN: string
-  ACCOUNT_ID: string
+  CLOUDFLARE_API_TOKEN: string
+  CLOUDFLARE_ACCOUNT_ID: string
   SENTRY_DSN: string
 }
