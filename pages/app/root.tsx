@@ -8,8 +8,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
-import { Footer } from './components/Footer'
-import { Nav } from './components/Nav'
+import { Footer } from '~/components/Footer'
+import { Nav } from '~/components/Nav'
 
 export const links: LinksFunction = () => {
   return [

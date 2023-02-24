@@ -2,7 +2,7 @@
 export default {
   devServerBroadcastDelay: 1000,
   ignoredRouteFiles: ['**/.*'],
-  server: './server.ts',
+  server: './pages/server.js',
   serverBuildPath: 'functions/[[path]].js',
   serverConditions: ['worker'],
   serverDependenciesToBundle: 'all',
@@ -10,7 +10,7 @@ export default {
   serverMinify: true,
   serverModuleFormat: 'esm',
   serverPlatform: 'neutral',
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
+  appDirectory: "pages/app",
+  assetsBuildDirectory: "pages/public/build",
   // publicPath: "/build/",
 }
