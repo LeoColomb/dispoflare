@@ -39,7 +39,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages project create dispoflare
+          command: pages project create dispoflare --production-branch main
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/wrangler-action@2.0.0
