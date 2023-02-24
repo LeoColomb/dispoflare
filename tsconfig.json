@@ -1,6 +1,5 @@
 {
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["__STATIC_CONTENT_MANIFEST"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "esnext"],
     "isolatedModules": true,

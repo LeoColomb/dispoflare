@@ -1,8 +1,7 @@
 interface Env {
   // Bindings to KV.
   // https://developers.cloudflare.com/workers/runtime-apis/kv/
-  __STATIC_CONTENT: KVNamespace
-  __STATIC_CONTENT_MANIFEST: string
+  // MY_KV: KVNamespace
 
   // Bindings to Durable Object.
   // https://developers.cloudflare.com/workers/runtime-apis/durable-objects/

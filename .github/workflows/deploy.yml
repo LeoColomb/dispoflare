@@ -19,11 +19,27 @@ jobs:
       - name: Install NPM packages
         run: npm ci
 
-      - name: Publish to Cloudflare
+      - name: Publish to Cloudflare Workers
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          secrets: |
+            API_TOKEN
+            ACCOUNT_ID
+        env:
+          API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Build Pages
+        run: npm run build
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages publish --project-name=dispoflare pages
           secrets: |
             API_TOKEN
             ACCOUNT_ID
