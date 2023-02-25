@@ -13,14 +13,14 @@ export const loader = async ({ context }: LoaderArgs) => {
   })
 }
 
-export default function Index() {
-  const data = useLoaderData<typeof loader>()
+export default function Manage() {
+  const { rules } = useLoaderData<typeof loader>()
 
   return (
     <section id="list">
       <Suspense fallback={<article aria-busy="true" />}>
         <Await
-          resolve={data.rules}
+          resolve={rules}
           errorElement={
             <article
               style={{
@@ -54,7 +54,7 @@ export default function Index() {
                 </thead>
                 <tbody>
                   {rules.map((rule) => (
-                    <Rule rule={rule} />
+                    <Rule rule={rule} key={rule.tag} />
                   ))}
                 </tbody>
               </table>

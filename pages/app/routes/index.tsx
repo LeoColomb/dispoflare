@@ -29,7 +29,7 @@ export const loader = async ({ context }: LoaderArgs) => {
 }
 
 export default function Index() {
-  const data = useLoaderData<typeof loader>()
+  const { zones, addresses } = useLoaderData<typeof loader>()
   const navigation = useNavigation()
   const isCreating = navigation.state === 'submitting'
 
@@ -66,7 +66,7 @@ export default function Index() {
               }
             >
               <Await
-                resolve={data.zones}
+                resolve={zones}
                 errorElement={
                   <select
                     id="zone"
@@ -88,7 +88,9 @@ export default function Index() {
                     required
                   >
                     {zones.map((zone) => (
-                      <option value={JSON.stringify(zone)}>{zone.name}</option>
+                      <option value={JSON.stringify(zone)} key={zone.id}>
+                        {zone.name}
+                      </option>
                     ))}
                   </select>
                 )}
@@ -113,7 +115,7 @@ export default function Index() {
             }
           >
             <Await
-              resolve={data.addresses}
+              resolve={addresses}
               errorElement={
                 <select
                   id="address"
@@ -131,7 +133,9 @@ export default function Index() {
               {(addresses: Address[]) => (
                 <select id="address" name="address" required>
                   {addresses.map((address) => (
-                    <option value={address.email}>{address.email}</option>
+                    <option value={address.email} key={address.tag}>
+                      {address.email}
+                    </option>
                   ))}
                 </select>
               )}
