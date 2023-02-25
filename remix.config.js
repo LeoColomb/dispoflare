@@ -10,7 +10,7 @@ export default {
   serverMinify: true,
   serverModuleFormat: 'esm',
   serverPlatform: 'neutral',
-  appDirectory: "pages/app",
+  appDirectory: 'pages/app',
   // assetsBuildDirectory: "public/build",
   // publicPath: "/build/",
 }
