@@ -10,19 +10,21 @@ const handleRequest = createPagesFunctionHandler({
   }),
 })
 
-const handler: ExportedHandler<Env> = {
-  fetch: async (req, env, ctx) => {
-    const r = new Request(req)
-    return handleRequest({
+export default {
+  fetch: async (
+    request: Request,
+    env: Env,
+    context: ExecutionContext,
+  ): Promise<Response> =>
+    handleRequest({
       env,
       params: {},
-      request: r,
-      waitUntil: ctx.waitUntil,
+      request: new Request(request),
+      waitUntil: context.waitUntil,
       next: () => {
         throw new Error('next() called in Worker')
       },
       functionPath: '',
       data: undefined,
-    })
-  },
+    }),
 }
