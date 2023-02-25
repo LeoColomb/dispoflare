@@ -18,7 +18,6 @@ jobs:
         with:
           command: kv:namespace list | jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          preCommands: apt-get update && apt-get -y install jq
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
@@ -49,7 +48,6 @@ jobs:
         with:
           command: kv:namespace list | jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          preCommands: apt-get update && apt-get -y install jq
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         if: ${{ env.tfstate_kv == '' }}
