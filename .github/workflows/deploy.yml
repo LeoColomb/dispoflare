@@ -13,17 +13,17 @@ jobs:
       - name: Use Terraform
         uses: hashicorp/setup-terraform@v2
 
-      - name: Init
-        run: terraform init
-        working-directory: ./tf
+      # - name: Init
+      #   run: terraform init
+      #   working-directory: ./tf
 
-      - name: Configure
-        run: terraform plan && terraform apply -auto-approve
-        working-directory: ./tf
-        env:
-          TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          TF_VAR_sentry_dsn: ${{ secrets.SENTRY_DSN }}
+      # - name: Configure
+      #   run: terraform plan && terraform apply -auto-approve
+      #   working-directory: ./tf
+      #   env:
+      #     TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     TF_VAR_sentry_dsn: ${{ secrets.SENTRY_DSN }}
 
   deploy:
     runs-on: ubuntu-latest
