@@ -80,18 +80,18 @@ export default function Index() {
                   </select>
                 }
               >
-                <select
-                  id="zone"
-                  name="zone"
-                  aria-label="Address domain"
-                  required
-                >
-                  {(zones: Zone[]) =>
-                    zones.map((zone) => (
+                {(zones: Zone[]) => (
+                  <select
+                    id="zone"
+                    name="zone"
+                    aria-label="Address domain"
+                    required
+                  >
+                    {zones.map((zone) => (
                       <option value={JSON.stringify(zone)}>{zone.name}</option>
-                    ))
-                  }
-                </select>
+                    ))}
+                  </select>
+                )}
               </Await>
             </Suspense>
           </label>
@@ -128,13 +128,13 @@ export default function Index() {
                 </select>
               }
             >
-              <select id="address" name="address" required>
-                {(addresses: Address[]) =>
-                  addresses.map((address) => (
+              {(addresses: Address[]) => (
+                <select id="address" name="address" required>
+                  {addresses.map((address) => (
                     <option value={address.email}>{address.email}</option>
-                  ))
-                }
-              </select>
+                  ))}
+                </select>
+              )}
             </Await>
           </Suspense>
         </label>
