@@ -24,7 +24,8 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "streetsidesoftware.code-spell-checker",
-        "bungcip.better-toml"
+        "bungcip.better-toml",
+        "HashiCorp.terraform"
       ]
     }
   },
