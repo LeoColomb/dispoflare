@@ -43,3 +43,12 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
     }
   }
 }
+
+resource "cloudflare_access_application" "dispoflare_access" {
+  account_id                = var.cloudflare_account_id
+  name                      = "dispoflare"
+  domain                    = cloudflare_pages_project.dispoflare_pages_project.subdomain
+  type                      = "self_hosted"
+  session_duration          = "730h"
+  auto_redirect_to_identity = false
+}
