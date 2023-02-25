@@ -1,7 +1,7 @@
 import { NavLink } from '@remix-run/react'
 
 export const Nav = () => {
-  const activeStyle = {
+  const activeStyle: React.CSSProperties = {
     '--background-color': 'var(--primary-focus)',
   }
   return (
@@ -13,30 +13,43 @@ export const Nav = () => {
           </strong>
         </li>
       </ul>
-      <ul>
+      <ul
+        style={{
+          gap: '1em',
+        }}
+      >
         <li>
           <NavLink
             to="/"
             end
+            aria-label="Create"
+            data-tooltip="Create"
+            data-placement="bottom"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
-            ➕ Create
+            ➕
           </NavLink>
         </li>
         <li>
           <NavLink
             to="manage"
+            aria-label="Manage"
+            data-tooltip="Manage"
+            data-placement="bottom"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
-            👌 Manage
+            📅
           </NavLink>
         </li>
         <li>
           <NavLink
             to="settings"
+            aria-label="Settings"
+            data-tooltip="Settings"
+            data-placement="bottom"
             style={({ isActive }) => (isActive ? activeStyle : undefined)}
           >
-            ⚙️ Settings
+            ⚙️
           </NavLink>
         </li>
       </ul>

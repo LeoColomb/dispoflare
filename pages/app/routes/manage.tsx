@@ -17,12 +17,15 @@ export default function Manage() {
   const { rules } = useLoaderData<typeof loader>()
 
   return (
-    <section id="list">
-      <Suspense fallback={<article aria-busy="true" />}>
+    <article style={{ margin: 0 }}>
+      <header>
+        <strong>Manage</strong>
+      </header>
+      <Suspense fallback={<div aria-busy="true" />}>
         <Await
           resolve={rules}
           errorElement={
-            <article
+            <div
               style={{
                 '--border-color': 'var(--form-element-invalid-border-color)',
                 border: 'var(--border-width) solid var(--border-color)',
@@ -38,30 +41,28 @@ export default function Manage() {
                 <br />
                 <small>Try reloading the page.</small>
               </p>
-            </article>
+            </div>
           }
         >
           {(rules: Rule[]) => (
-            <article>
-              <table role="grid">
-                <thead>
-                  <tr>
-                    <th scope="col">Rule address</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Expire on</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rules.map((rule) => (
-                    <Rule rule={rule} key={rule.tag} />
-                  ))}
-                </tbody>
-              </table>
-            </article>
+            <table role="grid">
+              <thead>
+                <tr>
+                  <th scope="col">Rule address</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Expire on</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {rules.map((rule) => (
+                  <Rule rule={rule} key={rule.tag} />
+                ))}
+              </tbody>
+            </table>
           )}
         </Await>
       </Suspense>
-    </section>
+    </article>
   )
 }
