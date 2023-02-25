@@ -1,6 +1,7 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/cloudflare'
-import { json, redirect } from '@remix-run/cloudflare'
-import { Form, useLoaderData, useNavigation } from '@remix-run/react'
+import { Suspense } from 'react'
+import { json, redirect, defer } from '@remix-run/cloudflare'
+import { Await, Form, useLoaderData, useNavigation } from '@remix-run/react'
 
 import { createRule } from '~/models/rule.server'
 import { getZones } from '~/models/zone.server'
@@ -21,14 +22,14 @@ export const action = async ({ request, context }: ActionArgs) => {
 }
 
 export const loader = async ({ context }: LoaderArgs) => {
-  return json({
-    zones: await getZones(context),
-    addresses: await getAddresses(context),
+  return defer({
+    zones: getZones(context),
+    addresses: getAddresses(context),
   })
 }
 
 export default function Index() {
-  const { zones, addresses } = useLoaderData<typeof loader>()
+  const data = useLoaderData<typeof loader>()
   const navigation = useNavigation()
   const isCreating = navigation.state === 'submitting'
 
@@ -49,31 +50,87 @@ export default function Index() {
           </label>
           <label htmlFor="zone">
             @
-            <select
-              id="zone"
-              name="zone"
-              placeholder="example.com"
-              aria-label="Address domain"
-              required
+            <Suspense
+              fallback={
+                <select
+                  id="zone"
+                  name="zone"
+                  placeholder="example.com"
+                  aria-label="Address domain"
+                  aria-busy="true"
+                  required
+                />
+              }
             >
-              {zones.map((zone) => (
-                <option value={JSON.stringify(zone)}>{zone.name}</option>
-              ))}
-            </select>
+              {' '}
+              <Await
+                resolve={data.zones}
+                errorElement={
+                  <select
+                    id="zone"
+                    name="zone"
+                    placeholder="Error loading zones"
+                    aria-invalid="true"
+                    required
+                  />
+                }
+              >
+                <select
+                  id="zone"
+                  name="zone"
+                  placeholder="example.com"
+                  aria-label="Address domain"
+                  required
+                >
+                  {(zones: Zone[]) =>
+                    zones.map((zone) => (
+                      <option value={JSON.stringify(zone)}>{zone.name}</option>
+                    ))
+                  }
+                </select>
+              </Await>
+            </Suspense>
           </label>
         </div>
         <label htmlFor="address">
           Forward to
-          <select
-            id="address"
-            name="address"
-            placeholder="user@example.com"
-            required
+          <Suspense
+            fallback={
+              <select
+                id="address"
+                name="address"
+                placeholder="user@example.com"
+                aria-busy="true"
+                required
+              />
+            }
           >
-            {addresses.map((address) => (
-              <option value={address.email}>{address.email}</option>
-            ))}
-          </select>
+            <Await
+              resolve={data.addresses}
+              errorElement={
+                <select
+                  id="address"
+                  name="address"
+                  placeholder="Error loading available addresses"
+                  aria-invalid="true"
+                  required
+                />
+              }
+            >
+              <select
+                id="address"
+                name="address"
+                placeholder="user@example.com"
+                required
+              >
+                {(addresses: Address[]) =>
+                  addresses.map((address) => (
+                    <option value={address.email}>{address.email}</option>
+                  ))
+                }
+              </select>
+            </Await>
+          </Suspense>
         </label>
         <label htmlFor="expire">
           Expiration
