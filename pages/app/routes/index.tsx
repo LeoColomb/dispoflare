@@ -55,30 +55,34 @@ export default function Index() {
                 <select
                   id="zone"
                   name="zone"
-                  placeholder="example.com"
                   aria-label="Address domain"
+                  defaultValue=""
                   aria-busy="true"
+                  disabled
                   required
-                />
+                >
+                  <option value="">Loading zones…</option>
+                </select>
               }
             >
-              {' '}
               <Await
                 resolve={data.zones}
                 errorElement={
                   <select
                     id="zone"
                     name="zone"
-                    placeholder="Error loading zones"
+                    aria-label="Address domain"
+                    defaultValue=""
                     aria-invalid="true"
                     required
-                  />
+                  >
+                    <option value="">Error loading zones</option>
+                  </select>
                 }
               >
                 <select
                   id="zone"
                   name="zone"
-                  placeholder="example.com"
                   aria-label="Address domain"
                   required
                 >
@@ -99,10 +103,13 @@ export default function Index() {
               <select
                 id="address"
                 name="address"
-                placeholder="user@example.com"
+                defaultValue=""
                 aria-busy="true"
+                disabled
                 required
-              />
+              >
+                <option value="">Loading routing addresses…</option>
+              </select>
             }
           >
             <Await
@@ -111,18 +118,17 @@ export default function Index() {
                 <select
                   id="address"
                   name="address"
-                  placeholder="Error loading available addresses"
+                  defaultValue=""
                   aria-invalid="true"
                   required
-                />
+                >
+                  <option value="" aria-invalid="true">
+                    Error loading routing addresses
+                  </option>
+                </select>
               }
             >
-              <select
-                id="address"
-                name="address"
-                placeholder="user@example.com"
-                required
-              >
+              <select id="address" name="address" required>
                 {(addresses: Address[]) =>
                   addresses.map((address) => (
                     <option value={address.email}>{address.email}</option>

@@ -53,14 +53,18 @@ export function ErrorBoundary({ error }) {
   return (
     <html>
       <head>
-        <title>Oh no! · Dispoflare</title>
+        <title>Oops! · Dispoflare</title>
         <Meta />
         <Links />
       </head>
       <body>
         <Nav />
         <main className="container" role="document">
-          {JSON.stringify(error)}
+          <hgroup style={{ textAlign: 'center' }}>
+            <h1>Oops!</h1>
+            <h2>Something went wrong</h2>
+          </hgroup>
+          <article style={{ textAlign: 'center' }}>{error.toString()}</article>
         </main>
         <Footer />
         <Scripts />
