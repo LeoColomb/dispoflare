@@ -11,6 +11,6 @@ export default {
   serverModuleFormat: 'esm',
   serverPlatform: 'neutral',
   appDirectory: "pages/app",
-  assetsBuildDirectory: "pages/public/build",
+  // assetsBuildDirectory: "public/build",
   // publicPath: "/build/",
 }
