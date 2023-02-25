@@ -18,7 +18,7 @@ export const action = async ({ request, context }: ActionArgs) => {
 
   await createRule({ rule, zone, address, expire, remove }, context)
 
-  return redirect('/')
+  return redirect('/manage')
 }
 
 export const loader = async ({ context }: LoaderArgs) => {

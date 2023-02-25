@@ -55,7 +55,7 @@ Please pay attention to all the steps involved in the installation process.
 
 **Dispoflare has no user registration.**
 
-Wildebeest uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
+Dispoflare uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
 It assumes that your users will register with another identity provider (Zero Trust supports [many providers](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/) or your custom one that implements [Generic SAML 2.0](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-saml/)).
 
 ## Development & Contributions
@@ -64,7 +64,7 @@ It assumes that your users will register with another identity provider (Zero Tr
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=586503021)
 
-This repository is ready for [Development Containers](https://containers.dev/).  
+This repository is ready for [Development Containers](https://containers.dev/).
 Click the badge above to create a codespace for this repository and start making and submitting changes.
 
 ### Local
