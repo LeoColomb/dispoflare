@@ -2,7 +2,6 @@ import type { EntryContext } from '@remix-run/cloudflare'
 import { PassThrough } from 'stream'
 import { renderToPipeableStream } from 'react-dom/server'
 import { RemixServer } from '@remix-run/react'
-import { renderToString } from 'react-dom/server'
 
 export default function handleRequest(
   request: Request,
@@ -10,22 +9,23 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const { pipe } = renderToPipeableStream(
       <RemixServer context={remixContext} url={request.url} />,
       {
         onShellReady() {
-          const body = new PassThrough()
-
           responseHeaders.set('Content-Type', 'text/html')
-
+          const body = new PassThrough()
+          pipe(body)
           resolve(
             new Response(body, {
               status: responseStatusCode,
               headers: responseHeaders,
             }),
           )
-          pipe(body)
+        },
+        onShellError(err: unknown) {
+          reject(err)
         },
       },
     )
