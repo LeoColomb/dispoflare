@@ -16,13 +16,13 @@ export default function handleRequest(
         onShellReady() {
           responseHeaders.set('Content-Type', 'text/html')
           const body = new PassThrough()
-          pipe(body)
           resolve(
             new Response(body, {
               status: responseStatusCode,
               headers: responseHeaders,
             }),
           )
+          pipe(body)
         },
         onShellError(err: unknown) {
           reject(err)

@@ -7,7 +7,7 @@ export default {
   serverConditions: ['worker'],
   serverDependenciesToBundle: 'all',
   serverMainFields: ['browser', 'module', 'main'],
-  // serverMinify: true,
+  serverMinify: true,
   serverModuleFormat: 'esm',
   serverPlatform: 'neutral',
   appDirectory: 'pages/app',
