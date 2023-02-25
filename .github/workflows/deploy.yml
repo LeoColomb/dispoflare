@@ -3,9 +3,32 @@ name: Deploy
 on: [push]
 
 jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: Init
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Init
+        run: terraform init
+        working-directory: ./tf
+
+      - name: Configure
+        run: terraform plan && terraform apply -auto-approve
+        working-directory: ./tf
+        env:
+          TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          TF_VAR_sentry_dsn: ${{ secrets.SENTRY_DSN }}
+
   deploy:
     runs-on: ubuntu-latest
     name: Deploy
+    needs: init
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -33,22 +56,6 @@ jobs:
 
       - name: Build Pages
         run: npm run build
-
-      - name: Init Cloudflare Pages
-        uses: cloudflare/wrangler-action@2.0.0
-        continue-on-error: true
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages project create dispoflare --production-branch main
-
-      - name: Set environment variables
-        run: |
-          echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" > .dev.vars
-          echo "CLOUDFLARE_ACCOUNT_ID=$CLOUDFLARE_ACCOUNT_ID" >> .dev.vars
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/wrangler-action@2.0.0

@@ -3,7 +3,7 @@ name = "dispoflare"
 # workers_dev = true
 main = "workers/index.ts"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
-compatibility_date = "2023-01-18"
+compatibility_date = "2023-02-25"
 
 [vars]
 # The necessary secrets are:
