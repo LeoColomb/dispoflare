@@ -2,7 +2,7 @@
 export default {
   devServerBroadcastDelay: 1000,
   ignoredRouteFiles: ['**/.*'],
-  server: './pages/server.js',
+  server: './pages/server.ts',
   serverBuildPath: 'functions/[[path]].js',
   serverConditions: ['worker'],
   serverDependenciesToBundle: 'all',
