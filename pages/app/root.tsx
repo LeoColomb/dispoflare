@@ -53,7 +53,7 @@ export function ErrorBoundary({ error }) {
   return (
     <html>
       <head>
-        <title>Oops! · Dispoflare</title>
+        <title>Oh no! · Dispoflare</title>
         <Meta />
         <Links />
       </head>
@@ -61,7 +61,7 @@ export function ErrorBoundary({ error }) {
         <Nav />
         <main className="container" role="document">
           <hgroup style={{ textAlign: 'center' }}>
-            <h1>Oops!</h1>
+            <h1>Oh no!</h1>
             <h2>Something went wrong</h2>
           </hgroup>
           <article style={{ textAlign: 'center' }}>{error.toString()}</article>
@@ -79,7 +79,7 @@ export function CatchBoundary() {
   return (
     <html>
       <head>
-        <title>Oh no! · Dispoflare</title>
+        <title>{caught.statusText} · Dispoflare</title>
         <Meta />
         <Links />
       </head>

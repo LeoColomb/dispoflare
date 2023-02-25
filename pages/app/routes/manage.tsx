@@ -1,6 +1,7 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/cloudflare'
-import { json, redirect } from '@remix-run/cloudflare'
-import { NavLink, useLoaderData, useNavigation } from '@remix-run/react'
+import { Suspense } from 'react'
+import { defer, redirect } from '@remix-run/cloudflare'
+import { Await, NavLink, useLoaderData } from '@remix-run/react'
 
 import { createRule, getRules } from '~/models/rule.server'
 import { getZones } from '~/models/zone.server'
@@ -21,19 +22,14 @@ export const action = async ({ request, context }: ActionArgs) => {
 }
 
 export const loader = async ({ context }: LoaderArgs) => {
-  const zones = await getZones(context)
-
-  return json({
-    zones,
-    addresses: await getAddresses(context),
-    rules: await getRules(zones, context),
+  return defer({
+    addresses: getAddresses(context),
+    rules: getRules(getZones(context), context),
   })
 }
 
 export default function Index() {
-  const { rules } = useLoaderData<typeof loader>()
-  const navigation = useNavigation()
-  const isCreating = navigation.state === 'submitting'
+  const data = useLoaderData<typeof loader>()
 
   return (
     <section id="list">
@@ -41,21 +37,30 @@ export default function Index() {
         ➕ Create a new disposable address
       </NavLink>
       <hr />
-      <table role="grid">
-        <thead>
-          <tr>
-            <th scope="col">Rule address</th>
-            <th scope="col">Status</th>
-            <th scope="col">Expire on</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {rules.map((rule) => (
-            <Rule rule={rule} />
-          ))}
-        </tbody>
-      </table>
+      <Suspense fallback={<article aria-busy="true"></article>}>
+        <Await
+          resolve={data.rules}
+          errorElement={<article aria-busy="true"></article>}
+        >
+          {(rules: Rule[]) => (
+            <table role="grid">
+              <thead>
+                <tr>
+                  <th scope="col">Rule address</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Expire on</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {rules.map((rule) => (
+                  <Rule rule={rule} />
+                ))}
+              </tbody>
+            </table>
+          )}
+        </Await>
+      </Suspense>
     </section>
   )
 }

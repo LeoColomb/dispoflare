@@ -1,5 +1,4 @@
 import type { EntryContext } from '@remix-run/cloudflare'
-import { PassThrough } from 'stream'
 import { renderToReadableStream } from 'react-dom/server'
 import { RemixServer } from '@remix-run/react'
 

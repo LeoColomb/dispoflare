@@ -1,6 +1,6 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/cloudflare'
 import { Suspense } from 'react'
-import { json, redirect, defer } from '@remix-run/cloudflare'
+import { redirect, defer } from '@remix-run/cloudflare'
 import { Await, Form, useLoaderData, useNavigation } from '@remix-run/react'
 
 import { createRule } from '~/models/rule.server'
