@@ -41,13 +41,30 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
 
       compatibility_date = "2023-02-25"
     }
+
+    preview {
+      environment_variables = {
+        CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
+        CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
+        SENTRY_DSN = sensitive(var.sentry_dsn)
+      }
+    }
   }
 }
 
-resource "cloudflare_access_application" "dispoflare_access" {
+resource "cloudflare_access_application" "dispoflare_production_access" {
   account_id                = var.cloudflare_account_id
-  name                      = "dispoflare"
+  name                      = "Dispoflare (Production)"
   domain                    = cloudflare_pages_project.dispoflare_pages_project.subdomain
+  type                      = "self_hosted"
+  session_duration          = "730h"
+  auto_redirect_to_identity = false
+}
+
+resource "cloudflare_access_application" "dispoflare_preview_access" {
+  account_id                = var.cloudflare_account_id
+  name                      = "Dispoflare (Previews)"
+  domain                    = "*.${cloudflare_pages_project.dispoflare_pages_project.subdomain}"
   type                      = "self_hosted"
   session_duration          = "730h"
   auto_redirect_to_identity = false
