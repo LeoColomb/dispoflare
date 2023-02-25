@@ -24,21 +24,21 @@ jobs:
 
       - name: Init Terraform
         run: terraform init
-        working-directory: ./tf
+        working-directory: ./.terraform
 
       - name: Download Terraform State
         uses: cloudflare/wrangler-action@2.0.0
         with:
-          command: kv:key get --namespace-id=${{ env.tfstate_kv }} terraform.tfstate > ./tf/terraform.tfstate
+          command: kv:key get --namespace-id=${{ env.tfstate_kv }} terraform.tfstate > ./.terraform/terraform.tfstate
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          postCommands: chmod 777 ./tf/terraform.tfstate
+          postCommands: chmod 777 ./.terraform/terraform.tfstate
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         if: ${{ env.tfstate_kv != '' }}
 
       - name: Configure
         run: terraform plan && terraform apply -auto-approve
-        working-directory: ./tf
+        working-directory: ./.terraform
         env:
           TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -57,7 +57,7 @@ jobs:
       - name: Store Terraform State
         uses: cloudflare/wrangler-action@2.0.0
         with:
-          command: kv:key put --namespace-id=${{ env.tfstate_kv }} terraform.tfstate --path=./tf/terraform.tfstate
+          command: kv:key put --namespace-id=${{ env.tfstate_kv }} terraform.tfstate --path=./.terraform/terraform.tfstate
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -87,9 +87,11 @@ jobs:
           secrets: |
             CLOUDFLARE_API_TOKEN
             CLOUDFLARE_ACCOUNT_ID
+            SENTRY_DSN
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
       - name: Build Pages
         run: npm run build
