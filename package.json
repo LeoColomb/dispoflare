@@ -23,7 +23,7 @@
     "toucan-js": "^3.1.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.18.0",
+    "@cloudflare/workers-types": "^4.0.0",
     "@remix-run/dev": "^1.13.0",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
