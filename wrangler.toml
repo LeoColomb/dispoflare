@@ -1,22 +1,16 @@
 name = "dispoflare"
 
-workers_dev = true
-main = "./build/index.js"
+# workers_dev = true
+main = "workers/index.ts"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
-compatibility_date = "2023-01-18"
-
-[build]
-command = "npm run build"
+compatibility_date = "2023-02-25"
 
 [vars]
 # The necessary secrets are:
-# - API_TOKEN
-# - ACCOUNT_ID
+# - CLOUDFLARE_API_TOKEN
+# - CLOUDFLARE_ACCOUNT_ID
 # - SENTRY_DSN
 # Run `echo <VALUE> | wrangler secret put <NAME>` for each of these
-
-[site]
-bucket = "./public"
 
 [triggers]
 crons = [ "0 */12 * * *" ]

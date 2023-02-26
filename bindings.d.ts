@@ -1,8 +1,7 @@
 interface Env {
   // Bindings to KV.
   // https://developers.cloudflare.com/workers/runtime-apis/kv/
-  __STATIC_CONTENT: KVNamespace
-  __STATIC_CONTENT_MANIFEST: string
+  KV_SETTINGS: KVNamespace
 
   // Bindings to Durable Object.
   // https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
@@ -14,7 +13,7 @@ interface Env {
 
   // Bindings to Variables.
   // https://developers.cloudflare.com/workers/platform/environment-variables/
-  API_TOKEN: string
-  ACCOUNT_ID: string
+  CLOUDFLARE_API_TOKEN: string
+  CLOUDFLARE_ACCOUNT_ID: string
   SENTRY_DSN: string
 }

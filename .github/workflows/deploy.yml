@@ -3,9 +3,69 @@ name: Deploy
 on: [push]
 
 jobs:
-  deploy:
+  infra:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Infrastructure
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Prepare Terraform State
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          command: kv:namespace list | jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          preCommands: apt-get update && apt-get -y install jq
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Init Terraform
+        run: terraform init
+        working-directory: ./.terraform
+
+      - name: Download Terraform State
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          command: kv:key get --namespace-id=${{ env.tfstate_kv }} terraform.tfstate > ./.terraform/terraform.tfstate
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          postCommands: chmod 777 ./.terraform/terraform.tfstate
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        if: ${{ env.tfstate_kv != '' }}
+
+      - name: Configure
+        run: terraform plan && terraform apply -auto-approve
+        working-directory: ./.terraform
+        env:
+          TF_VAR_cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          TF_VAR_sentry_dsn: ${{ secrets.SENTRY_DSN }}
+
+      - name: Init Terraform State
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          command: kv:namespace list | jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          preCommands: apt-get update && apt-get -y install jq
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        if: ${{ env.tfstate_kv == '' }}
+
+      - name: Store Terraform State
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          command: kv:key put --namespace-id=${{ env.tfstate_kv }} terraform.tfstate --path=./.terraform/terraform.tfstate
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  app:
+    runs-on: ubuntu-latest
+    name: Application
+    needs: infra
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,17 +79,29 @@ jobs:
       - name: Install NPM packages
         run: npm ci
 
-      - name: Publish to Cloudflare
+      - name: Publish to Cloudflare Workers
         uses: cloudflare/wrangler-action@2.0.0
         with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           secrets: |
-            API_TOKEN
-            ACCOUNT_ID
+            CLOUDFLARE_API_TOKEN
+            CLOUDFLARE_ACCOUNT_ID
+            SENTRY_DSN
         env:
-          API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+
+      - name: Build Pages
+        run: npm run build
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages publish public --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
 
       - name: Generate sourcemap
         run: npm run build -- --sourcemap
@@ -43,5 +115,5 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          sourcemaps: ./build ./public
+          sourcemaps: ./functions ./public
           set_commits: skip

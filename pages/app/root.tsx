@@ -8,8 +8,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
-import { Footer } from './components/Footer'
-import { Nav } from './components/Nav'
+import { Footer } from '~/components/Footer'
+import { Nav } from '~/components/Nav'
 
 export const links: LinksFunction = () => {
   return [
@@ -60,7 +60,11 @@ export function ErrorBoundary({ error }) {
       <body>
         <Nav />
         <main className="container" role="document">
-          {JSON.stringify(error)}
+          <hgroup style={{ textAlign: 'center' }}>
+            <h1>Oh no!</h1>
+            <h2>Something went wrong</h2>
+          </hgroup>
+          <article style={{ textAlign: 'center' }}>{error.toString()}</article>
         </main>
         <Footer />
         <Scripts />
@@ -75,7 +79,7 @@ export function CatchBoundary() {
   return (
     <html>
       <head>
-        <title>Oh no! · Dispoflare</title>
+        <title>{caught.statusText} · Dispoflare</title>
         <Meta />
         <Links />
       </head>

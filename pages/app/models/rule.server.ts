@@ -2,10 +2,10 @@ import { AppLoadContext } from '@remix-run/cloudflare'
 import * as rules from 'sdk/rules'
 
 export async function getRules(
-  zones: Zone[],
+  zones: Zone[] | Promise<Zone[]>,
   context: AppLoadContext,
 ): Promise<Array<Rule>> {
-  return rules.list(zones, context)
+  return rules.list(await zones, context)
 }
 
 export async function createRule(
