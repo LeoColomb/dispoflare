@@ -35,6 +35,7 @@ type Rule = {
 
 type DispoflareData = {
   dispoflare: true
+  activate: Date | string
   expire: Date | string
   remove: Date | string | undefined
   deprecate: Date | string | undefined

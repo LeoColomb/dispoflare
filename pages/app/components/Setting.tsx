@@ -50,7 +50,7 @@ export const Setting = ({
           }
         >
           {(valueResolved) => {
-            setValue(valueResolved)
+            setValue(valueResolved || setting.value)
             return (
               <input
                 type="text"

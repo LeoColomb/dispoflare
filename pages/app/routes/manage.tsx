@@ -45,21 +45,11 @@ export default function Manage() {
           }
         >
           {(rules: Rule[]) => (
-            <table role="grid">
-              <thead>
-                <tr>
-                  <th scope="col">Rule address</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Expire on</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {rules.map((rule) => (
-                  <Rule rule={rule} key={rule.tag} />
-                ))}
-              </tbody>
-            </table>
+            <div className="">
+              {rules.map((rule) => (
+                <Rule rule={rule} key={rule.tag} />
+              ))}
+            </div>
           )}
         </Await>
       </Suspense>

@@ -46,6 +46,7 @@ export async function createRule(
       ],
       name: JSON.stringify({
         dispoflare: true,
+        activate: new Date(),
         expire,
         remove,
       }),
