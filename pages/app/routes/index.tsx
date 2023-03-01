@@ -30,6 +30,7 @@ export const loader = async ({ context }: LoaderArgs) => {
 
 export default function Index() {
   const { zones, addresses } = useLoaderData<typeof loader>()
+  const today = new Date().toISOString().split('T')[0];
   const navigation = useNavigation()
   const isCreating = navigation.state === 'submitting'
 
@@ -144,7 +145,7 @@ export default function Index() {
         </label>
         <label htmlFor="expire">
           Expiration
-          <input type="date" id="expire" name="expire" required />
+          <input type="date" id="expire" name="expire" min={today} required />
         </label>
         <label htmlFor="remove">
           <input type="checkbox" id="remove" name="remove" role="switch" />
