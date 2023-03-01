@@ -11,11 +11,6 @@ const defaultSettings: Settings = [
     name: 'Deletion delay',
     value: '2',
   },
-  {
-    key: 'Dddd',
-    name: 'Ddsd sd',
-    value: 'our',
-  },
 ]
 
 export const loader = async ({ context }: LoaderArgs) => {

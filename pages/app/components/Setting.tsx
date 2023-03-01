@@ -1,7 +1,5 @@
-import type { LoaderArgs, ActionArgs } from '@remix-run/cloudflare'
-import { Suspense } from 'react'
-import { defer } from '@remix-run/cloudflare'
-import { Await, useFetcher, useLoaderData } from '@remix-run/react'
+import { ChangeEvent, Suspense, useState } from 'react'
+import { Await, useFetcher } from '@remix-run/react'
 
 export const Setting = ({
   setting,
@@ -10,8 +8,13 @@ export const Setting = ({
   setting: Setting
   valuePromise: Promise<string | null>
 }) => {
+  const [value, setValue] = useState('')
   const fetcher = useFetcher()
   const isBusy = fetcher.state === 'submitting'
+
+  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }
 
   return (
     <fetcher.Form
@@ -42,17 +45,22 @@ export const Setting = ({
               id={setting.key}
               name="setting-value"
               aria-invalid="true"
+              disabled
             />
           }
         >
-          {(value) => (
-            <input
-              type="text"
-              id={setting.key}
-              name="setting-value"
-              value={value ?? setting.value}
-            />
-          )}
+          {(valueResolved) => {
+            setValue(valueResolved)
+            return (
+              <input
+                type="text"
+                id={setting.key}
+                name="setting-value"
+                onChange={onChange}
+                value={value}
+              />
+            )
+          }}
         </Await>
       </Suspense>
       <button
