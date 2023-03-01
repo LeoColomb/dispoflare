@@ -11,13 +11,10 @@ import {
 import { Footer } from '~/components/Footer'
 import { Nav } from '~/components/Nav'
 
+import styles from '@picocss/pico'
+
 export const links: LinksFunction = () => {
-  return [
-    {
-      rel: 'stylesheet',
-      href: 'https://unpkg.com/@picocss/pico@latest/css/pico.min.css',
-    },
-  ]
+  return [{ rel: 'stylesheet', href: styles }]
 }
 
 export const meta: MetaFunction = () => ({
