@@ -53,7 +53,7 @@ Please pay attention to all the steps involved in the installation process.
 
 ### Access Policy
 
-> Warning
+> Warning  
 > **Dispoflare has no user registration.**
 
 Dispoflare uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
