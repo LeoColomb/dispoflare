@@ -53,7 +53,8 @@ Please pay attention to all the steps involved in the installation process.
 
 ### Access Policy
 
-**Dispoflare has no user registration.**
+> Warning
+> **Dispoflare has no user registration.**
 
 Dispoflare uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
 It assumes that your users will register with another identity provider (Zero Trust supports [many providers](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/) or your custom one that implements [Generic SAML 2.0](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-saml/)).
