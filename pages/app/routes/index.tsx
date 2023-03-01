@@ -147,7 +147,7 @@ export default function Index() {
           <input type="date" id="expire" name="expire" required />
         </label>
         <label htmlFor="remove">
-          <input type="checkbox" id="remove" name="switch" role="switch" />
+          <input type="checkbox" id="remove" name="remove" role="switch" />
           Delete 1 month after expiration
         </label>
         <footer>
