@@ -30,9 +30,12 @@
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
+    "ghcr.io/devcontainers/features/node": {
       "version": "node"
     }
   },
-  "postCreateCommand": "npm install"
+  "postCreateCommand": "npm install",
+  "postAttachCommand": {
+    "server": "npm run start"
+  }
 }
