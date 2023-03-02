@@ -35,7 +35,7 @@ We are of course assuming that you have:
 - At least one [zone](https://www.cloudflare.com/learning/dns/glossary/dns-zone/) using Cloudflare.
   If you don't have a zone, you can use [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/).
 
-All of the used Cloudflare products offer a [free plan](https://www.cloudflare.com/plans/) that allows to try them for personal or hobby projects.
+All the used Cloudflare products offer a [free plan](https://www.cloudflare.com/plans/) that allows to try them for personal or hobby projects.
 
 ### Deploy
 
@@ -53,8 +53,8 @@ Please pay attention to all the steps involved in the installation process.
 
 ### Access Policy
 
-> Warning  
-> **Dispoflare has no user registration.**
+> **Warning**  
+> Dispoflare has no user registration.
 
 Dispoflare uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
 It assumes that your users will register with another identity provider (Zero Trust supports [many providers](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/) or your custom one that implements [Generic SAML 2.0](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-saml/)).
