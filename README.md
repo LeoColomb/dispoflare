@@ -1,14 +1,10 @@
+![Dispoflare Illustration](.design/illustration.svg)
+
 # Dispo<em>flare</em>
 
 > Disposable email addresses on the fly powered by Cloudflare
 
-![Dispoflare Illustration](.design/illustration.svg)
-
-## About
-
-Dispoflare is an app using Cloudflare products to host and manage disposable email addresses.
-
-### Features
+## Features
 
 - ➕ Generate new email addresses at any time (via [Email Router](https://developers.cloudflare.com/email-routing/))
   - 🔀 Random or user-defined username
@@ -17,7 +13,9 @@ Dispoflare is an app using Cloudflare products to host and manage disposable ema
   - 🗃️ Optional archived period with possible remediation
   - 🗑️ Automatic clean up delay
 
-### Cloudflare Platform
+## About
+
+Dispoflare is an app using Cloudflare products to host and manage disposable email addresses.
 
 - Email routing: [Cloudflare Email Routing](https://www.cloudflare.com/products/email-routing/)
 - Static hosting: [Cloudflare Pages](https://pages.cloudflare.com/)
