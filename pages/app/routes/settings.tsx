@@ -17,7 +17,7 @@ const defaultSettings: Settings = [
     key: 'deletion-delay',
     name: 'Deletion delay (days)',
     value: 7,
-    min: 1,
+    min: 0,
     max: 60,
   },
 ]
