@@ -101,20 +101,35 @@ export default function Index() {
                   </select>
                 }
               >
-                {(routingZones: Zone[]) => (
-                  <select
-                    id="zone"
-                    name="zone"
-                    aria-label="Address domain"
-                    required
-                  >
-                    {routingZones.map((zone) => (
-                      <option value={JSON.stringify(zone)} key={zone.id}>
-                        {zone.name}
+                {(routingZones: Zone[]) =>
+                  routingZones.length ? (
+                    <select
+                      id="zone"
+                      name="zone"
+                      aria-label="Address domain"
+                      required
+                    >
+                      {routingZones.map((zone) => (
+                        <option value={JSON.stringify(zone)} key={zone.id}>
+                          {zone.name}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <select
+                      id="zone"
+                      name="zone"
+                      aria-label="Address domain"
+                      defaultValue=""
+                      aria-invalid="true"
+                      required
+                    >
+                      <option value="">
+                        Unable to find a domain for email routing
                       </option>
-                    ))}
-                  </select>
-                )}
+                    </select>
+                  )
+                }
               </Await>
             </Suspense>
           </label>
