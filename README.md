@@ -2,21 +2,24 @@
 
 # Dispo<em>flare</em>
 
-> Disposable email addresses on the fly powered by Cloudflare
+> 📧 Disposable email addresses on the fly powered by Cloudflare
 
 ## Features
 
 - ➕ Generate new email addresses at any time (via [Email Router](https://developers.cloudflare.com/email-routing/))
   - 🔀 Random or user-defined username
+  - 🕵️ Use your own unique domain(s)
 - 📅 Handle expiration dates (via [Cron Triggers](https://developers.cloudflare.com/workers/platform/triggers/cron-triggers/))
-  - ⏲️ Optional deprecation period (via [Email Workers](https://developers.cloudflare.com/email-routing/email-workers/))
+  - ⏲️ Custom deprecation period (via [Email Workers](https://developers.cloudflare.com/email-routing/email-workers/))
   - 🗃️ Optional archived period with possible remediation
-  - 🗑️ Automatic clean up delay
+  - 🗑️ Optional automatic clean up
 
 ## About
 
-Dispoflare is an app using Cloudflare products to host and manage disposable email addresses.
+Dispoflare provides a easy and free way to generate custom disposable email addresses.
+The app can be seen as an alternative to [Firefox Relay](https://relay.firefox.com/) with custom domains.
 
+Dispoflare is an app levering Cloudflare products to host and manage disposable email addresses:
 - Email routing: [Cloudflare Email Routing](https://www.cloudflare.com/products/email-routing/)
 - Static hosting: [Cloudflare Pages](https://pages.cloudflare.com/)
 - Backend functions: [Cloudflare Workers](https://workers.cloudflare.com/)
@@ -26,7 +29,9 @@ Dispoflare is an app using Cloudflare products to host and manage disposable ema
 
 ### Requirements
 
-Dispoflare is a full-stack app running on top of Cloudflare platform.
+> **Note**
+> Dispoflare is a full-stack app running on top of Cloudflare platform.
+
 We are of course assuming that you have:
 
 - A Cloudflare account (click [here](https://dash.cloudflare.com/sign-up) if you don't)
@@ -39,7 +44,8 @@ All the used Cloudflare products offer a [free plan](https://www.cloudflare.com/
 
 [![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare&authed=true&apiTokenTmpl=%5B%7B%22key%22%3A%22page%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22access%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22email_routing_address%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22email_routing_rule%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22zone%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22zone_settings%22%2C%22type%22%3A%22read%22%7D%5D&apiTokenName=Dispoflare)
 
-Please pay attention to all the steps involved in the installation process.
+> **Note**
+> Please pay attention to all the steps involved in the installation process.
 
 - Authorize Workers to use your GitHub account.
 - Enter your **Account ID** (from the previous section)
