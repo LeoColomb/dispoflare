@@ -1,5 +1,5 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/cloudflare'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
 import { redirect, defer } from '@remix-run/cloudflare'
 import { Await, Form, useLoaderData, useNavigation } from '@remix-run/react'
 
@@ -30,22 +30,35 @@ export const loader = async ({ context }: LoaderArgs) => {
 
 export default function Index() {
   const { zones, addresses } = useLoaderData<typeof loader>()
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split('T')[0]
   const navigation = useNavigation()
   const isCreating = navigation.state === 'submitting'
+  const [localPart, setLocalPart] = useState('')
+
+  const generateLocalPart = () => {
+    setLocalPart(self.crypto.randomUUID())
+  }
 
   return (
     <Form method="post">
       <article style={{ margin: 0 }}>
         <div className="grid">
           <label htmlFor="rule">
-            Address
+            Address ·{' '}
+            <span
+              onClick={generateLocalPart}
+              data-tooltip="Generate a random address"
+            >
+              🔀
+            </span>
             <input
               type="text"
               name="rule"
               placeholder="rule-local-part"
               aria-label="Address local-part"
               pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+"
+              value={localPart}
+              onChange={(e) => setLocalPart(e.target.value)}
               required
             />
           </label>
@@ -100,7 +113,13 @@ export default function Index() {
           </label>
         </div>
         <label htmlFor="address">
-          Forward to
+          Forward to ·{' '}
+          <a
+            href="https://dash.cloudflare.com/?zone=email/routing/routes"
+            data-tooltip="Add an routing address"
+          >
+            ➕
+          </a>
           <Suspense
             fallback={
               <select
