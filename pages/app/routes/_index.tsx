@@ -5,6 +5,7 @@ import { Await, Form, useLoaderData, useNavigation } from '@remix-run/react'
 
 import { createRule } from '~/models/rule.server'
 import { getZones } from '~/models/zone.server'
+import { getRoutingZones } from '~/models/routing.server'
 import { getAddresses } from '~/models/address.server'
 
 export const action = async ({ request, context }: ActionArgs) => {
@@ -23,13 +24,13 @@ export const action = async ({ request, context }: ActionArgs) => {
 
 export const loader = async ({ context }: LoaderArgs) => {
   return defer({
-    zones: getZones(context),
+    routingZones: getRoutingZones(getZones(context), context),
     addresses: getAddresses(context),
   })
 }
 
 export default function Index() {
-  const { zones, addresses } = useLoaderData<typeof loader>()
+  const { routingZones, addresses } = useLoaderData<typeof loader>()
   const today = new Date().toISOString().split('T')[0]
   const navigation = useNavigation()
   const isCreating = navigation.state === 'submitting'
@@ -80,7 +81,7 @@ export default function Index() {
               }
             >
               <Await
-                resolve={zones}
+                resolve={routingZones}
                 errorElement={
                   <select
                     id="zone"
@@ -94,14 +95,14 @@ export default function Index() {
                   </select>
                 }
               >
-                {(zones: Zone[]) => (
+                {(routingZones: Zone[]) => (
                   <select
                     id="zone"
                     name="zone"
                     aria-label="Address domain"
                     required
                   >
-                    {zones.map((zone) => (
+                    {routingZones.map((zone) => (
                       <option value={JSON.stringify(zone)} key={zone.id}>
                         {zone.name}
                       </option>
