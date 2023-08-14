@@ -2,7 +2,7 @@ export async function getSetting(
   key: string,
   env: Env,
 ): Promise<string | null> {
-  return env.KV_SETTINGS.get(key)
+  return env.KV_SETTINGS?.get(key) || null
 }
 
 export async function putSetting(
