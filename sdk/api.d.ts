@@ -11,6 +11,13 @@ type Zone = {
   name: string
 }
 
+type Routing = {
+  enabled: boolean
+  name: string
+  status: string
+  tag: string
+}
+
 type Address = {
   email: string
   tag: string
