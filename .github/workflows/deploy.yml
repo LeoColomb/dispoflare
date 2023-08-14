@@ -97,7 +97,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages publish public --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
+          command: pages deploy public --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
 
       - name: Generate sourcemap
         run: npm run build -- --sourcemap
