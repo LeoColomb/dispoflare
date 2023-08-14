@@ -7,6 +7,7 @@ import { createRule } from '~/models/rule.server'
 import { getZones } from '~/models/zone.server'
 import { getRoutingZones } from '~/models/routing.server'
 import { getAddresses } from '~/models/address.server'
+import { getSetting } from '~/models/settings.server'
 
 export const action = async ({ request, context }: ActionArgs) => {
   const formData = await request.formData()
@@ -26,18 +27,20 @@ export const loader = async ({ context }: LoaderArgs) => {
   return defer({
     routingZones: getRoutingZones(getZones(context), context),
     addresses: getAddresses(context),
+    randomSize: getSetting('random-size', context),
   })
 }
 
 export default function Index() {
-  const { routingZones, addresses } = useLoaderData<typeof loader>()
+  const { routingZones, addresses, randomSize } = useLoaderData<typeof loader>()
   const today = new Date().toISOString().split('T')[0]
   const navigation = useNavigation()
   const isCreating = navigation.state === 'submitting'
   const [localPart, setLocalPart] = useState('')
 
-  const generateLocalPart = () => {
-    setLocalPart(self.crypto.randomUUID())
+  const generateLocalPart = async () => {
+    const size = (await randomSize) || 1
+    setLocalPart(self.crypto.randomUUID().split('-').slice(0, size).join('-'))
   }
 
   return (
@@ -58,6 +61,9 @@ export default function Index() {
               placeholder="rule-local-part"
               aria-label="Address local-part"
               pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+"
+              style={{
+                textAlign: 'right',
+              }}
               value={localPart}
               onChange={(e) => setLocalPart(e.target.value)}
               required

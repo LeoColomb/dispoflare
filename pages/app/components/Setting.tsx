@@ -8,7 +8,7 @@ export const Setting = ({
   setting: Setting
   valuePromise: Promise<string | null>
 }) => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(setting.value)
   const fetcher = useFetcher()
   const isBusy = fetcher.state === 'submitting'
 
@@ -26,53 +26,54 @@ export const Setting = ({
     >
       <label htmlFor={setting.key} key={setting.key}>
         {setting.name}
-      </label>
-      <Suspense
-        fallback={
-          <input
-            type="text"
-            id={setting.key}
-            name="setting-value"
-            aria-busy="true"
-          />
-        }
-      >
-        <Await
-          resolve={valuePromise}
-          errorElement={
+        <Suspense
+          fallback={
             <input
-              type="text"
+              type="range"
               id={setting.key}
               name="setting-value"
-              aria-invalid="true"
-              disabled
+              min={setting.min}
+              max={setting.max}
+              step={setting.step}
+              value={value}
+              aria-busy="true"
             />
           }
         >
-          {(valueResolved) => {
-            setValue(valueResolved || setting.value)
-            return (
+          <Await
+            resolve={valuePromise}
+            errorElement={
               <input
-                type="text"
+                type="range"
                 id={setting.key}
                 name="setting-value"
-                onChange={onChange}
+                min={setting.min}
+                max={setting.max}
+                step={setting.step}
                 value={value}
+                aria-invalid="true"
+                disabled
               />
-            )
-          }}
-        </Await>
-      </Suspense>
-      <button
-        type="submit"
-        aria-label="Save"
-        name="setting-key"
-        value={setting.key}
-        disabled={isBusy}
-        aria-busy={isBusy}
-      >
-        💾
-      </button>
+            }
+          >
+            {(valueResolved) => {
+              setValue(valueResolved || setting.value)
+              return (
+                <input
+                  type="range"
+                  id={setting.key}
+                  name="setting-value"
+                  onChange={onChange}
+                  min={setting.min}
+                  max={setting.max}
+                  step={setting.step}
+                  value={value}
+                />
+              )
+            }}
+          </Await>
+        </Suspense>
+      </label>
     </fetcher.Form>
   )
 }

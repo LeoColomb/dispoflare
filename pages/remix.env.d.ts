@@ -7,7 +7,10 @@ type Settings = Setting[]
 type Setting = {
   key: string
   name: string
-  value: any
+  value: number | string
+  min?: number
+  max?: number
+  step?: number
   metadata?: Metadata
 }
 
