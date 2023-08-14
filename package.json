@@ -8,7 +8,7 @@
     "dev": "remix dev",
     "start": "remix dev --manual -c \"npm run wrangler\"",
     "typecheck": "tsc",
-    "wrangler": "wrangler pages dev ./public",
+    "wrangler": "wrangler pages dev --compatibility-date=2023-06-21 ./public",
     "lint": "prettier --check .",
     "format": "prettier --write ."
   },
