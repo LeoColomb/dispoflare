@@ -1,10 +1,12 @@
-import type { MetaFunction, LinksFunction } from '@remix-run/cloudflare'
+import type { LinksFunction } from '@remix-run/cloudflare'
+import type { V2_MetaFunction } from '@remix-run/node'
 import {
   Links,
   LiveReload,
   Meta,
   Outlet,
-  useCatch,
+  useRouteError,
+  isRouteErrorResponse,
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
@@ -17,12 +19,12 @@ export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }]
 }
 
-export const meta: MetaFunction = () => ({
-  charset: 'utf-8',
-  title: 'Dispoflare · Disposable email addresses on the fly',
-  description: 'Disposable email addresses on the fly',
-  viewport: 'width=device-width,initial-scale=1',
-})
+export const meta: V2_MetaFunction = () => [
+  { charset: 'utf-8' },
+  { title: 'Dispoflare · Disposable email addresses on the fly' },
+  { description: 'Disposable email addresses on the fly' },
+  { viewport: 'width=device-width,initial-scale=1' },
+]
 
 export default function App() {
   return (
@@ -45,12 +47,37 @@ export default function App() {
   )
 }
 
-export function ErrorBoundary({ error }) {
-  console.error(error)
+export function ErrorBoundary() {
+  const error = useRouteError()
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <html>
+        <head>
+          <Meta />
+          <Links />
+        </head>
+        <body>
+          <Nav />
+          <main className="container" role="document">
+            <hgroup style={{ textAlign: 'center' }}>
+              <h1>{error.status}</h1>
+              <h2>{error.statusText}</h2>
+            </hgroup>
+            <article style={{ textAlign: 'center' }}>
+              {error.data.message}
+            </article>
+          </main>
+          <Footer />
+          <Scripts />
+        </body>
+      </html>
+    )
+  }
+
   return (
     <html>
       <head>
-        <title>Oh no! · Dispoflare</title>
         <Meta />
         <Links />
       </head>
@@ -62,32 +89,6 @@ export function ErrorBoundary({ error }) {
             <h2>Something went wrong</h2>
           </hgroup>
           <article style={{ textAlign: 'center' }}>{error.toString()}</article>
-        </main>
-        <Footer />
-        <Scripts />
-      </body>
-    </html>
-  )
-}
-
-export function CatchBoundary() {
-  const caught = useCatch()
-
-  return (
-    <html>
-      <head>
-        <title>{caught.statusText} · Dispoflare</title>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <Nav />
-        <main className="container" role="document">
-          <hgroup style={{ textAlign: 'center' }}>
-            <h1>{caught.status}</h1>
-            <h2>{caught.statusText}</h2>
-          </hgroup>
-          <article style={{ textAlign: 'center' }}>{caught.data}</article>
         </main>
         <Footer />
         <Scripts />

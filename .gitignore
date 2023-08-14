@@ -5,6 +5,7 @@ build
 /dist
 /functions/\[\[path\]\].js
 /functions/\[\[path\]\].js.map
+/functions/metafile.*.json
 /.mf
 .env
 
