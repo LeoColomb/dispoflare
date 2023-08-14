@@ -25,7 +25,7 @@ export default function Manage() {
         <Await
           resolve={rules}
           errorElement={
-            <div
+            <article
               style={{
                 '--border-color': 'var(--form-element-invalid-border-color)',
                 border: 'var(--border-width) solid var(--border-color)',
@@ -41,7 +41,7 @@ export default function Manage() {
                 <br />
                 <small>Try reloading the page.</small>
               </p>
-            </div>
+            </article>
           }
         >
           {(rules: Rule[]) => (
