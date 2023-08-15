@@ -16,10 +16,10 @@
 
 ## About
 
-Dispoflare provides a easy and free way to generate custom disposable email addresses.
+Dispoflare provides an easy and free way to generate custom disposable email addresses.  
 The app can be seen as an alternative to [Firefox Relay](https://relay.firefox.com/) with custom domains.
 
-Dispoflare is an app levering Cloudflare products to host and manage disposable email addresses:
+Dispoflare app is levering Cloudflare products to host and manage the service:
 - Email routing: [Cloudflare Email Routing](https://www.cloudflare.com/products/email-routing/)
 - Static hosting: [Cloudflare Pages](https://pages.cloudflare.com/)
 - Backend functions: [Cloudflare Workers](https://workers.cloudflare.com/)
