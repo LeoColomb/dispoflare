@@ -21,15 +21,12 @@ export const links: LinksFunction = () => {
 
 export const meta: V2_MetaFunction = () => [
   { charset: 'utf-8' },
-  { 
-    name: 'title',
-    content: 'Dispoflare · Disposable email addresses on the fly',
-  },
-  { 
+  { title: 'Dispoflare · Disposable email addresses on the fly' },
+  {
     name: 'description',
     content: 'Disposable email addresses on the fly',
   },
-  { 
+  {
     name: 'viewport',
     content: 'width=device-width,initial-scale=1',
   },
