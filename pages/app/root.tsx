@@ -21,9 +21,18 @@ export const links: LinksFunction = () => {
 
 export const meta: V2_MetaFunction = () => [
   { charset: 'utf-8' },
-  { title: 'Dispoflare · Disposable email addresses on the fly' },
-  { description: 'Disposable email addresses on the fly' },
-  { viewport: 'width=device-width,initial-scale=1' },
+  { 
+    name: 'title',
+    content: 'Dispoflare · Disposable email addresses on the fly',
+  },
+  { 
+    name: 'description',
+    content: 'Disposable email addresses on the fly',
+  },
+  { 
+    name: 'viewport',
+    content: 'width=device-width,initial-scale=1',
+  },
 ]
 
 export default function App() {
