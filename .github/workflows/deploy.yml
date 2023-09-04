@@ -8,7 +8,7 @@ jobs:
     name: Infrastructure
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Terraform
         uses: hashicorp/setup-terraform@v2
@@ -64,7 +64,7 @@ jobs:
     needs: infra
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js LTS
         uses: actions/setup-node@v3
