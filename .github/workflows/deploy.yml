@@ -14,7 +14,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
 
       - name: Retrieve Terraform State
-        uses: cloudflare/wrangler-action@v3.2.0
+        uses: cloudflare/wrangler-action@v3.2.1
         with:
           command: kv:namespace list > .kv_namespace_list.json
           postCommands: jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' .kv_namespace_list.json | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
@@ -26,7 +26,7 @@ jobs:
         working-directory: ./.terraform
 
       - name: Download Terraform State
-        uses: cloudflare/wrangler-action@v3.2.0
+        uses: cloudflare/wrangler-action@v3.2.1
         with:
           command: kv:key get --namespace-id=${{ env.tfstate_kv }} terraform.tfstate > ./.terraform/terraform.tfstate
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -43,7 +43,7 @@ jobs:
           TF_VAR_sentry_dsn: ${{ secrets.SENTRY_DSN }}
 
       - name: Init Terraform State
-        uses: cloudflare/wrangler-action@v3.2.0
+        uses: cloudflare/wrangler-action@v3.2.1
         if: ${{ env.tfstate_kv == '' }}
         with:
           command: kv:namespace list > .kv_namespace_list.json
@@ -52,7 +52,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Store Terraform State
-        uses: cloudflare/wrangler-action@v3.2.0
+        uses: cloudflare/wrangler-action@v3.2.1
         with:
           command: kv:key put --namespace-id=${{ env.tfstate_kv }} terraform.tfstate --path=./.terraform/terraform.tfstate
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -76,7 +76,7 @@ jobs:
         run: npm ci
 
       - name: Publish to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3.2.0
+        uses: cloudflare/wrangler-action@v3.2.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -93,7 +93,7 @@ jobs:
         run: npm run build
 
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3.2.0
+        uses: cloudflare/wrangler-action@v3.2.1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
