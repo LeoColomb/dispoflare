@@ -16,8 +16,7 @@ jobs:
       - name: Retrieve Terraform State
         uses: cloudflare/wrangler-action@v3.3.2
         with:
-          command: kv:namespace list > .kv_namespace_list.json
-          postCommands: jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' .kv_namespace_list.json | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
+          preCommands: npx wrangler kv:namespace list | jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
@@ -28,7 +27,7 @@ jobs:
       - name: Download Terraform State
         uses: cloudflare/wrangler-action@v3.3.2
         with:
-          command: kv:key get --namespace-id=${{ env.tfstate_kv }} terraform.tfstate > ./.terraform/terraform.tfstate
+          preCommands: npx wrangler kv:key get --namespace-id=${{ env.tfstate_kv }} terraform.tfstate > ./.terraform/terraform.tfstate
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           postCommands: chmod 777 ./.terraform/terraform.tfstate
@@ -46,8 +45,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3.3.2
         if: ${{ env.tfstate_kv == '' }}
         with:
-          command: kv:namespace list > .kv_namespace_list.json
-          postCommands: jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' .kv_namespace_list.json | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
+          preCommands: npx wrangler kv:namespace list | jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
