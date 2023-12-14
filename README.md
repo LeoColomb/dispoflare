@@ -29,7 +29,7 @@ Dispoflare app is levering Cloudflare products to host and manage the service:
 
 ### Requirements
 
-> **Note**
+> [!TIP]
 > Dispoflare is a full-stack app running on top of Cloudflare platform.
 
 We are of course assuming that you have:
@@ -44,7 +44,7 @@ All the used Cloudflare products offer a [free plan](https://www.cloudflare.com/
 
 [![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare&authed=true&apiTokenTmpl=%5B%7B%22key%22%3A%22page%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22access%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22email_routing_address%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22email_routing_rule%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22zone%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22zone_settings%22%2C%22type%22%3A%22read%22%7D%5D&apiTokenName=Dispoflare)
 
-> **Note**
+> [!IMPORTANT]
 > Please pay attention to all the steps involved in the installation process.
 
 - Authorize Workers to use your GitHub account.
@@ -57,7 +57,7 @@ All the used Cloudflare products offer a [free plan](https://www.cloudflare.com/
 
 ### Access Policy
 
-> **Warning**
+> [!WARNING]
 > Dispoflare has no user registration.
 
 Dispoflare uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
