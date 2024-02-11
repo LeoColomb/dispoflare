@@ -46,49 +46,77 @@ export default function Index() {
   return (
     <Form method="post">
       <article style={{ margin: 0 }}>
-        <div className="grid">
-          <label htmlFor="rule">
-            Address ·{' '}
-            <span
-              onClick={generateLocalPart}
-              data-tooltip="Generate a random address"
-            >
-              🔀
-            </span>
-            <input
-              type="text"
-              name="rule"
-              placeholder="rule-local-part"
-              aria-label="Address local-part"
-              pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+"
-              style={{
-                textAlign: 'right',
-              }}
-              value={localPart}
-              onChange={(e) => setLocalPart(e.target.value)}
-              required
-            />
-          </label>
-          <label htmlFor="zone">
+        <label htmlFor="rule">
+          Address ·{' '}
+          <span
+            onClick={generateLocalPart}
+            data-tooltip="Generate a random address"
+          >
+            🔀
+          </span>
+        </label>
+        <fieldset role="group">
+          <input
+            type="text"
+            name="rule"
+            placeholder="rule-local-part"
+            aria-label="Address local-part"
+            pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+"
+            style={{
+              textAlign: 'right',
+            }}
+            value={localPart}
+            onChange={(e) => setLocalPart(e.target.value)}
+            required
+          />
+          <button class="secondary" disabled>
             @
-            <Suspense
-              fallback={
+          </button>
+          <Suspense
+            fallback={
+              <select
+                id="zone"
+                name="zone"
+                aria-label="Address domain"
+                defaultValue=""
+                aria-busy="true"
+                disabled
+                required
+              >
+                <option value="">Loading zones…</option>
+              </select>
+            }
+          >
+            <Await
+              resolve={routingZones}
+              errorElement={
                 <select
                   id="zone"
                   name="zone"
                   aria-label="Address domain"
                   defaultValue=""
-                  aria-busy="true"
-                  disabled
+                  aria-invalid="true"
                   required
                 >
-                  <option value="">Loading zones…</option>
+                  <option value="">Error loading zones</option>
                 </select>
               }
             >
-              <Await
-                resolve={routingZones}
-                errorElement={
+              {(routingZones: Zone[]) =>
+                routingZones.length ? (
+                  <select
+                    id="zone"
+                    name="zone"
+                    aria-label="Address domain"
+                    required
+                  >
+                    {routingZones.map((zone) => (
+                      <option value={JSON.stringify(zone)} key={zone.id}>
+                        {zone.name}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
                   <select
                     id="zone"
                     name="zone"
@@ -97,43 +125,15 @@ export default function Index() {
                     aria-invalid="true"
                     required
                   >
-                    <option value="">Error loading zones</option>
+                    <option value="">
+                      Unable to find a domain for email routing
+                    </option>
                   </select>
-                }
-              >
-                {(routingZones: Zone[]) =>
-                  routingZones.length ? (
-                    <select
-                      id="zone"
-                      name="zone"
-                      aria-label="Address domain"
-                      required
-                    >
-                      {routingZones.map((zone) => (
-                        <option value={JSON.stringify(zone)} key={zone.id}>
-                          {zone.name}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <select
-                      id="zone"
-                      name="zone"
-                      aria-label="Address domain"
-                      defaultValue=""
-                      aria-invalid="true"
-                      required
-                    >
-                      <option value="">
-                        Unable to find a domain for email routing
-                      </option>
-                    </select>
-                  )
-                }
-              </Await>
-            </Suspense>
-          </label>
-        </div>
+                )
+              }
+            </Await>
+          </Suspense>
+        </fieldset>
         <label htmlFor="address">
           Forward to ·{' '}
           <a
