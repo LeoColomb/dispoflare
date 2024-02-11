@@ -6,7 +6,9 @@ build
 /functions/\[\[path\]\].js
 /functions/\[\[path\]\].js.map
 /functions/metafile.*.json
+/functions/version.txt
 /.mf
 .env
 
 .dev.vars
+.wrangler/
