@@ -1,8 +1,6 @@
-import type { LinksFunction } from '@remix-run/cloudflare'
-import type { V2_MetaFunction } from '@remix-run/node'
+import type { LinksFunction, MetaFunction } from '@remix-run/cloudflare'
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   useRouteError,
@@ -19,7 +17,7 @@ export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }]
 }
 
-export const meta: V2_MetaFunction = () => [
+export const meta: MetaFunction = () => [
   { charset: 'utf-8' },
   { title: 'Dispoflare · Disposable email addresses on the fly' },
   {
@@ -47,7 +45,6 @@ export default function App() {
         <Footer />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   )

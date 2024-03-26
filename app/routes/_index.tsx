@@ -69,7 +69,7 @@ export default function Index() {
             onChange={(e) => setLocalPart(e.target.value)}
             required
           />
-          <button class="secondary" disabled>
+          <button className="secondary" disabled>
             @
           </button>
           <Suspense

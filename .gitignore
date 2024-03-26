@@ -1,9 +1,8 @@
 node_modules
 
 /.cache
-build
+/build
 /dist
-/functions/\[\[path\]\].js
 /functions/\[\[path\]\].js.map
 /functions/metafile.*.json
 /functions/version.txt
