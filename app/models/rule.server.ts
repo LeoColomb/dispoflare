@@ -5,7 +5,7 @@ export async function getRules(
   zones: Zone[] | Promise<Zone[]>,
   context: AppLoadContext,
 ): Promise<Array<Rule>> {
-  return rules.list(await zones, context)
+  return rules.list(await zones, context.cloudflare.env)
 }
 
 export async function createRule(
@@ -52,7 +52,7 @@ export async function createRule(
       }),
     },
     zone,
-    context,
+    context.cloudflare.env,
   )
 }
 
@@ -60,12 +60,12 @@ export async function dropRule(
   rule: Rule,
   context: AppLoadContext,
 ): Promise<void> {
-  await rules.remove(rule, context)
+  await rules.remove(rule, context.cloudflare.env)
 }
 
 export async function updateRule(
   rule: Rule,
   context: AppLoadContext,
 ): Promise<Rule> {
-  return rules.put(rule, context)
+  return rules.put(rule, context.cloudflare.env)
 }

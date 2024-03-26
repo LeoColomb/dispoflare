@@ -1,14 +1,16 @@
+import { AppLoadContext } from '@remix-run/cloudflare'
+
 export async function getSetting(
   key: string,
-  env: Env,
+  context: AppLoadContext,
 ): Promise<string | null> {
-  return env.KV_SETTINGS?.get(key) || null
+  return context.cloudflare.env.KV_SETTINGS?.get(key) || null
 }
 
 export async function putSetting(
   key: string,
   value: string,
-  env: Env,
+  context: AppLoadContext,
 ): Promise<void> {
-  return env.KV_SETTINGS.put(key, value)
+  return context.cloudflare.env.KV_SETTINGS.put(key, value)
 }

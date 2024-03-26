@@ -8,7 +8,7 @@ export async function getRoutingZones(
   const allZones = await zones
   const routingZones: Array<PromiseSettledResult<Routing>> =
     await Promise.allSettled(
-      allZones.map((zone: Zone) => routing.get(zone, context)),
+      allZones.map((zone: Zone) => routing.get(zone, context.cloudflare.env)),
     )
   return routingZones
     .filter((zone) => zone.status === 'fulfilled' && zone.value.enabled)
