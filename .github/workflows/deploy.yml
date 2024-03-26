@@ -79,6 +79,16 @@ jobs:
       - name: Install NPM packages
         run: npm ci
 
+      - name: Build Pages
+        run: npm run build
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3.4.1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy public --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
+
       - name: Publish to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3.4.1
         with:
@@ -92,16 +102,6 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-
-      - name: Build Pages
-        run: npm run build
-
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3.4.1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
 
       - name: Generate sourcemap
         run: npm run build -- --sourcemap
