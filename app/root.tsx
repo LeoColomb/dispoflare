@@ -28,7 +28,7 @@ export const meta: MetaFunction = () => [
   },
 ]
 
-export default function App() {
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -38,7 +38,7 @@ export default function App() {
       <body>
         <Nav />
         <main className="container" role="document">
-          <Outlet />
+          {children}
         </main>
         <Footer />
         <ScrollRestoration />
@@ -46,6 +46,10 @@ export default function App() {
       </body>
     </html>
   )
+}
+
+export default function App() {
+  return <Outlet />
 }
 
 export function ErrorBoundary() {
