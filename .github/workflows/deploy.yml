@@ -87,7 +87,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
+          command: pages deploy . --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
 
       - name: Publish to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3.4.1
@@ -103,9 +103,6 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
-      - name: Generate sourcemap
-        run: npm run build -- --sourcemap
-
       - name: Create a Sentry release
         uses: getsentry/action-release@v1
         continue-on-error: true
@@ -115,5 +112,5 @@ jobs:
           SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
         with:
           environment: production
-          sourcemaps: ./functions ./public
+          sourcemaps: ./functions ./build
           set_commits: skip
