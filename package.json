@@ -17,7 +17,7 @@
     "@remix-run/cloudflare": "^2.0.0",
     "@remix-run/cloudflare-pages": "^2.0.0",
     "@remix-run/react": "^2.0.0",
-    "@sentry/remix": "^7.35.0",
+    "@sentry/remix": "^8.0.0",
     "isbot": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
