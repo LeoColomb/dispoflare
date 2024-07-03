@@ -3,8 +3,7 @@ import {
   handleAsset,
 } from '@remix-run/cloudflare-workers'
 import * as build from '@remix-run/dev/server-build'
-import { Toucan } from 'toucan-js'
-import { RewriteFrames } from '@sentry/integrations'
+import { Toucan, rewriteFramesIntegration } from 'toucan-js'
 
 // @ts-ignore
 import manifestJSON from '__STATIC_CONTENT_MANIFEST'
@@ -27,7 +26,7 @@ export const fetch = async (
     dsn: env.SENTRY_DSN,
     context,
     request,
-    integrations: [new RewriteFrames({ root: '/' })],
+    integrations: [rewriteFramesIntegration({ root: '/' })],
   })
   sentry.configureScope((scope) => scope.setExtras(env))
   const event: FetchEvent = {
