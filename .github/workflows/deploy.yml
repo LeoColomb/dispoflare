@@ -89,6 +89,18 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy build/client --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
 
+      - name: Setup Sentry
+        uses: cloudflare/wrangler-action@v3.7.0
+        if: ${{ secrets.SENTRY_DSN }}
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: versions
+          secrets: |
+            SENTRY_DSN
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+
       - name: Publish to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3.7.0
         with:
@@ -97,15 +109,14 @@ jobs:
           secrets: |
             CLOUDFLARE_API_TOKEN
             CLOUDFLARE_ACCOUNT_ID
-            SENTRY_DSN
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
       - name: Create a Sentry release
         uses: getsentry/action-release@v1
         continue-on-error: true
+        if: ${{ secrets.SENTRY_AUTH_TOKEN }}
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
