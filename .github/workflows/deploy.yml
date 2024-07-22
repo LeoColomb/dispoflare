@@ -126,7 +126,7 @@ jobs:
       - name: Create a Sentry release
         uses: getsentry/action-release@v1
         continue-on-error: true
-        if: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        if: ${{ steps.sentry-check.outputs.sentry == 'true' }}
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
