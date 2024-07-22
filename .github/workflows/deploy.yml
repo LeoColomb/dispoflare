@@ -89,9 +89,19 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy build/client --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
 
+      - name: Check for Sentry availability
+        id: sentry-check
+        shell: bash
+        run: |
+          if [ "${{ secrets.SENTRY_DSN }}" != '' ]; then
+            echo "sentry=true" >> $GITHUB_OUTPUT;
+          else
+            echo "sentry=false" >> $GITHUB_OUTPUT;
+          fi
+
       - name: Setup Sentry
         uses: cloudflare/wrangler-action@v3.7.0
-        if: ${{ secrets.SENTRY_DSN }}
+        if: ${{ steps.sentry-check.outputs.sentry == 'true' }}
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
