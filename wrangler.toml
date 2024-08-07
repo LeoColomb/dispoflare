@@ -2,7 +2,6 @@ name = "dispoflare"
 
 # workers_dev = true
 main = "workers/index.ts"
-pages_build_output_dir = "build/client"
 # https://developers.cloudflare.com/workers/platform/compatibility-dates
 compatibility_date = "2024-03-26"
 

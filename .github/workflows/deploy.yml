@@ -87,7 +87,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy --branch=${{ github.head_ref || github.ref_name }}
+          command: pages deploy build/client --branch=${{ github.head_ref || github.ref_name }} --project-name=dispoflare
 
       - name: Check for Sentry availability
         id: sentry-check
