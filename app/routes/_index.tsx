@@ -22,7 +22,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
   const expire = formData.get('expire')
   const remove = !!formData.get('remove')
 
-  await createRule({ rule, zone, address, expire, remove }, context.cloudflare)
+  await createRule({ rule, zone, address, expire, remove }, context)
 
   return redirect('/manage')
 }
