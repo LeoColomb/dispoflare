@@ -1,21 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "mergeConfidence:all-badges",
-    "config:recommended",
-    ":disableDependencyDashboard"
-  ],
-  "labels": [
-    "dependencies"
-  ],
-  "rangeStrategy": "update-lockfile",
-  "packageRules": [
-    {
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "automerge": true
-    }
-  ]
+  "extends": ["local>LeoColomb/.github:renovate-config"],
+  "rangeStrategy": "update-lockfile"
 }
