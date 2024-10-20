@@ -1,3 +1,5 @@
+# https://git-scm.com/docs/gitignore
+
 node_modules
 
 /.cache
