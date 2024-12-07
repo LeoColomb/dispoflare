@@ -32,7 +32,7 @@ export const Nav = () => {
         </li>
         <li>
           <NavLink
-            to="manage"
+            to="/manage"
             aria-label="Manage"
             data-tooltip="Manage"
             data-placement="bottom"
@@ -43,7 +43,7 @@ export const Nav = () => {
         </li>
         <li>
           <NavLink
-            to="settings"
+            to="/settings"
             aria-label="Settings"
             data-tooltip="Settings"
             data-placement="bottom"
