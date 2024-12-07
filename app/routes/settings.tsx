@@ -1,13 +1,10 @@
-import type {
-  LoaderFunctionArgs,
-  ActionFunctionArgs,
-} from '@remix-run/cloudflare'
+import type { Route } from './+types/settings.js'
 
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData } from 'react-router'
 
-import { getSetting, putSetting } from '~/models/settings.server'
+import { getSetting, putSetting } from '~/models/settings.server.js'
 
-import { Setting } from '~/components/Setting'
+import { Setting } from '~/components/Setting.js'
 
 const defaultSettings: Settings = [
   {
@@ -26,7 +23,7 @@ const defaultSettings: Settings = [
   },
 ]
 
-export async function loader({ context }: LoaderFunctionArgs) {
+export async function loader({ context }: Route.ActionArgs) {
   const settings: any = {}
   for (const setting of defaultSettings) {
     settings[setting.key] = getSetting(setting.key, context)
@@ -34,7 +31,7 @@ export async function loader({ context }: LoaderFunctionArgs) {
   return settings
 }
 
-export async function action({ request, context }: ActionFunctionArgs) {
+export async function action({ request, context }: Route.LoaderArgs) {
   const formData = await request.formData()
   return putSetting(
     formData.get('setting-key'),
@@ -51,7 +48,7 @@ export default function Settings() {
       <header>
         <strong>Settings</strong>
       </header>
-      {defaultSettings.map((setting) => (
+      {defaultSettings.map((setting: Setting) => (
         <Setting
           key={setting.key}
           setting={setting}

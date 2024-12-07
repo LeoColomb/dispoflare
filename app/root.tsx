@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/cloudflare'
+import type { MetaFunction } from 'react-router';
 
 import {
   Links,
@@ -8,7 +8,7 @@ import {
   isRouteErrorResponse,
   Scripts,
   ScrollRestoration,
-} from '@remix-run/react'
+} from 'react-router';
 
 import '@picocss/pico'
 

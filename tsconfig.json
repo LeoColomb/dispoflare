@@ -1,8 +1,13 @@
 {
-  "include": ["pages/app/env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    ".react-router/types/**/*",
+    "pages/app/env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "esnext"],
-    "types": ["@remix-run/cloudflare", "vite/client"],
+    "types": ["@react-router/cloudflare", "vite/client"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -19,7 +24,7 @@
       "~/*": ["./app/*"],
       "@/*": ["./*"]
     },
-
+    "rootDirs": [".", "./.react-router/types"],
     // Remix takes care of building everything in `remix build`.
     "noEmit": true
   }

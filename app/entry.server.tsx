@@ -4,18 +4,18 @@
  * For more information, see https://remix.run/file-conventions/entry.server
  */
 
-import type { EntryContext } from '@remix-run/cloudflare'
-import { RemixServer } from '@remix-run/react'
+import type { EntryContext } from 'react-router';
+import { ServerRouter } from 'react-router';
 import { renderToReadableStream } from 'react-dom/server'
 
 export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext,
+  reactRouterContext: EntryContext,
 ) {
   const body = await renderToReadableStream(
-    <RemixServer context={remixContext} url={request.url} />,
+    <ServerRouter context={reactRouterContext} url={request.url} />,
     {
       onError() {
         responseStatusCode = 500

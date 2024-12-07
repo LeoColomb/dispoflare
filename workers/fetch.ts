@@ -1,8 +1,5 @@
-import {
-  createRequestHandler,
-  handleAsset,
-} from '@remix-run/cloudflare-workers'
-import * as build from '@remix-run/dev/server-build'
+import { createRequestHandler, handleAsset } from '@react-router/cloudflare-workers';
+import * as build from '@react-router/dev/server-build';
 import { Toucan, rewriteFramesIntegration } from 'toucan-js'
 
 // @ts-ignore

@@ -1,4 +1,4 @@
-import { AppLoadContext } from '@remix-run/cloudflare'
+import { AppLoadContext } from 'react-router';
 
 export async function getSetting(
   key: string,

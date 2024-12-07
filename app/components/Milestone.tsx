@@ -1,4 +1,4 @@
-import { IntlDate } from '~/components/IntlDate'
+import { IntlDate } from '~/components/IntlDate.js'
 
 export const Milestone = ({
   name,

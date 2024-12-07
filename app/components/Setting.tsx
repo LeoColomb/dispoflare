@@ -1,5 +1,5 @@
 import { ChangeEvent, Suspense, useState } from 'react'
-import { Await, useFetcher } from '@remix-run/react'
+import { Await, useFetcher } from 'react-router'
 
 export const Setting = ({
   setting,

@@ -1,4 +1,4 @@
-import { NavLink } from '@remix-run/react'
+import { NavLink } from 'react-router';
 
 export const Nav = () => {
   const activeStyle: React.CSSProperties = {
