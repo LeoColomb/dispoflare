@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router';
+import { NavLink } from 'react-router'
 
 export const Nav = () => {
   const activeStyle: React.CSSProperties = {
@@ -41,7 +41,7 @@ export const Nav = () => {
             📅
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             to="/settings"
             aria-label="Settings"
@@ -51,7 +51,7 @@ export const Nav = () => {
           >
             ⚙️
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </nav>
   )
