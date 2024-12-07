@@ -63,6 +63,7 @@ All the used Cloudflare products offer a [free plan](https://www.cloudflare.com/
 
 > [!WARNING]
 > Dispoflare has no user registration.
+> You may need to setup Access Policy in [Cloudflare's Zero Trust](https://one.dash.cloudflare.com/) dashboard.
 
 Dispoflare uses [Zero Trust Access](https://www.cloudflare.com/products/zero-trust/access/) to handle user authentication.
 It assumes that your users will register with another identity provider (Zero Trust supports [many providers](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/) or your custom one that implements [Generic SAML 2.0](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-saml/)).
