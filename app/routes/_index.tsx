@@ -1,11 +1,8 @@
-import type {
-  ActionFunctionArgs,
-  LoaderFunctionArgs,
-} from '@remix-run/cloudflare'
+import type { Route } from './+types/_index.js'
 
 import { Suspense, useState } from 'react'
-import { redirect } from '@remix-run/cloudflare'
-import { Await, Form, useLoaderData, useNavigation } from '@remix-run/react'
+import { redirect } from 'react-router'
+import { Await, Form, useLoaderData, useNavigation } from 'react-router'
 
 import { createRule } from '~/models/rule.server'
 import { getZones } from '~/models/zone.server'
@@ -13,7 +10,7 @@ import { getRoutingZones } from '~/models/routing.server'
 import { getAddresses } from '~/models/address.server'
 import { getSetting } from '~/models/settings.server'
 
-export async function action({ request, context }: ActionFunctionArgs) {
+export async function action({ request, context }: Route.ActionArgs) {
   const formData = await request.formData()
 
   const rule = formData.get('rule')
@@ -27,7 +24,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
   return redirect('/manage')
 }
 
-export async function loader({ context }: LoaderFunctionArgs) {
+export async function loader({ context }: Route.LoaderArgs) {
   return {
     routingZones: getRoutingZones(getZones(context), context),
     addresses: getAddresses(context),

@@ -1,5 +1,5 @@
-import { AppLoadContext } from '@remix-run/cloudflare'
-import * as rules from 'sdk/rules'
+import { AppLoadContext } from 'react-router'
+import * as rules from 'sdk/rules.js'
 
 export async function getRules(
   zones: Zone[] | Promise<Zone[]>,

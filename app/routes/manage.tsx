@@ -1,14 +1,14 @@
-import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
+import type { Route } from './+types/manage.js'
 
 import { Suspense } from 'react'
-import { Await, useLoaderData } from '@remix-run/react'
+import { Await, useLoaderData } from 'react-router'
 
-import { getRules } from '~/models/rule.server'
-import { getZones } from '~/models/zone.server'
+import { getRules } from '~/models/rule.server.js'
+import { getZones } from '~/models/zone.server.js'
 
-import { Rule } from '~/components/Rule'
+import { Rule } from '~/components/Rule.js'
 
-export async function loader({ context }: LoaderFunctionArgs) {
+export async function loader({ context }: Route.LoaderArgs) {
   return {
     rules: getRules(getZones(context), context),
   }

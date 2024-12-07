@@ -1,5 +1,5 @@
-import { AppLoadContext } from '@remix-run/cloudflare'
-import * as routing from 'sdk/routing'
+import { AppLoadContext } from 'react-router'
+import * as routing from 'sdk/routing.js'
 
 export async function getRoutingZones(
   zones: Zone[] | Promise<Zone[]>,

@@ -1,5 +1,5 @@
-import { AppLoadContext } from '@remix-run/cloudflare'
-import * as addresses from 'sdk/addresses'
+import { AppLoadContext } from 'react-router'
+import * as addresses from 'sdk/addresses.js'
 
 export async function getAddresses(
   context: AppLoadContext,
