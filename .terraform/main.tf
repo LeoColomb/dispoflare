@@ -75,7 +75,7 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
   }
 }
 
-resource "cloudflare_access_application" "dispoflare_production_access" {
+resource "cloudflare_zero_trust_access_application" "dispoflare_production_access" {
   account_id                = var.cloudflare_account_id
   name                      = "Dispoflare (Production)"
   domain                    = cloudflare_pages_project.dispoflare_pages_project.subdomain
@@ -84,7 +84,7 @@ resource "cloudflare_access_application" "dispoflare_production_access" {
   auto_redirect_to_identity = false
 }
 
-resource "cloudflare_access_application" "dispoflare_preview_access" {
+resource "cloudflare_zero_trust_access_application" "dispoflare_preview_access" {
   account_id                = var.cloudflare_account_id
   name                      = "Dispoflare (Preview)"
   domain                    = "*.${cloudflare_pages_project.dispoflare_pages_project.subdomain}"
