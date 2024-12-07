@@ -4,7 +4,7 @@ import type {
 } from '@remix-run/cloudflare'
 
 import { Suspense, useState } from 'react'
-import { redirect, defer } from '@remix-run/cloudflare'
+import { redirect } from '@remix-run/cloudflare'
 import { Await, Form, useLoaderData, useNavigation } from '@remix-run/react'
 
 import { createRule } from '~/models/rule.server'
@@ -28,11 +28,11 @@ export async function action({ request, context }: ActionFunctionArgs) {
 }
 
 export async function loader({ context }: LoaderFunctionArgs) {
-  return defer({
+  return {
     routingZones: getRoutingZones(getZones(context), context),
     addresses: getAddresses(context),
     randomSize: getSetting('random-size', context),
-  })
+  }
 }
 
 export default function Index() {

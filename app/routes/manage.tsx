@@ -1,7 +1,6 @@
 import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
 
 import { Suspense } from 'react'
-import { defer } from '@remix-run/cloudflare'
 import { Await, useLoaderData } from '@remix-run/react'
 
 import { getRules } from '~/models/rule.server'
@@ -10,9 +9,9 @@ import { getZones } from '~/models/zone.server'
 import { Rule } from '~/components/Rule'
 
 export async function loader({ context }: LoaderFunctionArgs) {
-  return defer({
+  return {
     rules: getRules(getZones(context), context),
-  })
+  }
 }
 
 export default function Manage() {

@@ -3,7 +3,6 @@ import type {
   ActionFunctionArgs,
 } from '@remix-run/cloudflare'
 
-import { defer } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 
 import { getSetting, putSetting } from '~/models/settings.server'
@@ -32,7 +31,7 @@ export async function loader({ context }: LoaderFunctionArgs) {
   for (const setting of defaultSettings) {
     settings[setting.key] = getSetting(setting.key, context)
   }
-  return defer(settings)
+  return settings
 }
 
 export async function action({ request, context }: ActionFunctionArgs) {
