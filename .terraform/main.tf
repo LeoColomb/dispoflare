@@ -46,7 +46,7 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
   name              = "dispoflare"
   production_branch = "main"
 
-  deployment_configs {
+  deployment_configs = {
     production {
       environment_variables = {
         CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
