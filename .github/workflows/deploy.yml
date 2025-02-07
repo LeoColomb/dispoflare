@@ -142,7 +142,7 @@ jobs:
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
       - name: Create a Sentry release
-        uses: getsentry/action-release@v1
+        uses: getsentry/action-release@v1.9.0
         continue-on-error: true
         if: ${{ steps.sentry-check.outputs.sentry == 'true' }}
         env:
