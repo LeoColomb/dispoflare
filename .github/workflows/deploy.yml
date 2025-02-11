@@ -23,7 +23,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Retrieve Terraform State
-        uses: cloudflare/wrangler-action@v3.13.1
+        uses: cloudflare/wrangler-action@v3.14.0
         with:
           command: --version
           preCommands: npx wrangler kv:namespace list | jq -r '.[] | select( .title == "dispoflare-terraform-state" ) | .id' | awk '{print "tfstate_kv="$1}' >> $GITHUB_ENV
@@ -35,7 +35,7 @@ jobs:
         working-directory: ./.terraform
 
       - name: Download Terraform State
-        uses: cloudflare/wrangler-action@v3.13.1
+        uses: cloudflare/wrangler-action@v3.14.0
         with:
           command: --version
           preCommands: npx wrangler kv:key get --namespace-id=${{ env.tfstate_kv }} terraform.tfstate > ./.terraform/terraform.tfstate
@@ -53,7 +53,7 @@ jobs:
           TF_VAR_sentry_dsn: ${{ secrets.SENTRY_DSN || '' }}
 
       - name: Init Terraform State
-        uses: cloudflare/wrangler-action@v3.13.1
+        uses: cloudflare/wrangler-action@v3.14.0
         if: ${{ env.tfstate_kv == '' }}
         with:
           command: --version
@@ -62,7 +62,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Store Terraform State
-        uses: cloudflare/wrangler-action@v3.13.1
+        uses: cloudflare/wrangler-action@v3.14.0
         with:
           command: kv:key put --namespace-id=${{ env.tfstate_kv }} terraform.tfstate --path=./.terraform/terraform.tfstate
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -89,7 +89,7 @@ jobs:
         run: npm run build
 
       - name: Publish to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3.13.1
+        uses: cloudflare/wrangler-action@v3.14.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -107,7 +107,7 @@ jobs:
 
       # - name: Setup Sentry
       #   if: ${{ steps.sentry-check.outputs.sentry == 'true' }}
-      #   uses: cloudflare/wrangler-action@v3.13.1
+      #   uses: cloudflare/wrangler-action@v3.14.0
       #   with:
       #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -118,7 +118,7 @@ jobs:
       #     SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
       - name: Publish to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3.13.1
+        uses: cloudflare/wrangler-action@v3.14.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
