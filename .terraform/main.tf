@@ -17,7 +17,7 @@ terraform {
   required_providers {
     cloudflare = {
       source = "cloudflare/cloudflare"
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 }
@@ -46,8 +46,8 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
   name              = "dispoflare"
   production_branch = "main"
 
-  deployment_configs {
-    production {
+  deployment_configs = {
+    production = {
       environment_variables = {
         CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
         CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
@@ -61,7 +61,7 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
       compatibility_date = "2023-02-25"
     }
 
-    preview {
+    preview = {
       environment_variables = {
         CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
         CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
