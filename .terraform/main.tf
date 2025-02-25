@@ -17,7 +17,7 @@ terraform {
   required_providers {
     cloudflare = {
       source = "cloudflare/cloudflare"
-      version = "~> 5.0"
+      version = "~> 5.1"
     }
   }
 }
@@ -55,7 +55,9 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
       }
 
       kv_namespaces = {
-        KV_SETTINGS = sensitive(cloudflare_workers_kv_namespace.dispoflare_production_settings.id)
+        KV_SETTINGS = {
+          namespace_id = sensitive(cloudflare_workers_kv_namespace.dispoflare_production_settings.id)
+        }
       }
 
       compatibility_date = "2023-02-25"
@@ -69,7 +71,9 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
       }
 
       kv_namespaces = {
-        KV_SETTINGS = sensitive(cloudflare_workers_kv_namespace.dispoflare_preview_settings.id)
+        KV_SETTINGS = {
+          namespace_id = sensitive(cloudflare_workers_kv_namespace.dispoflare_preview_settings.id)
+        }
       }
     }
   }
