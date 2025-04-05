@@ -49,9 +49,18 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
   deployment_configs = {
     production = {
       env_vars = {
-        CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
-        CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
-        SENTRY_DSN = sensitive(try(var.sentry_dsn, ""))
+        CLOUDFLARE_ACCOUNT_ID = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_account_id)
+        }
+        CLOUDFLARE_API_TOKEN = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_api_token)
+        }
+        SENTRY_DSN = {
+          type = "plain_text"
+          value = sensitive(try(var.sentry_dsn, ""))
+        }
       }
 
       kv_namespaces = {
@@ -63,9 +72,18 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
 
     preview = {
       env_vars = {
-        CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
-        CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
-        SENTRY_DSN = sensitive(try(var.sentry_dsn, ""))
+        CLOUDFLARE_ACCOUNT_ID = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_account_id)
+        }
+        CLOUDFLARE_API_TOKEN = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_api_token)
+        }
+        SENTRY_DSN = {
+          type = "plain_text"
+          value = sensitive(try(var.sentry_dsn, ""))
+        }
       }
 
       kv_namespaces = {
