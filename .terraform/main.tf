@@ -51,7 +51,7 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
       env_vars = {
         CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
         CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
-        SENTRY_DSN = sensitive(var.sentry_dsn)
+        SENTRY_DSN = sensitive(try(var.sentry_dsn, ""))
       }
 
       kv_namespaces = {
@@ -65,7 +65,7 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
       env_vars = {
         CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
         CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
-        SENTRY_DSN = sensitive(var.sentry_dsn)
+        SENTRY_DSN = sensitive(try(var.sentry_dsn, ""))
       }
 
       kv_namespaces = {
