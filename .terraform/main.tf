@@ -48,7 +48,7 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
 
   deployment_configs = {
     production = {
-      environment_variables = {
+      env_vars = {
         CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
         CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
         SENTRY_DSN = sensitive(var.sentry_dsn)
@@ -59,12 +59,10 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
           namespace_id = sensitive(cloudflare_workers_kv_namespace.dispoflare_production_settings.id)
         }
       }
-
-      compatibility_date = "2023-02-25"
     }
 
     preview = {
-      environment_variables = {
+      env_vars = {
         CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
         CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
         SENTRY_DSN = sensitive(var.sentry_dsn)
