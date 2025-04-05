@@ -48,10 +48,19 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
 
   deployment_configs = {
     production = {
-      environment_variables = {
-        CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
-        CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
-        SENTRY_DSN = sensitive(var.sentry_dsn)
+      env_vars = {
+        CLOUDFLARE_ACCOUNT_ID = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_account_id)
+        }
+        CLOUDFLARE_API_TOKEN = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_api_token)
+        }
+        SENTRY_DSN = {
+          type = "plain_text"
+          value = sensitive(try(var.sentry_dsn, ""))
+        }
       }
 
       kv_namespaces = {
@@ -59,15 +68,22 @@ resource "cloudflare_pages_project" "dispoflare_pages_project" {
           namespace_id = sensitive(cloudflare_workers_kv_namespace.dispoflare_production_settings.id)
         }
       }
-
-      compatibility_date = "2023-02-25"
     }
 
     preview = {
-      environment_variables = {
-        CLOUDFLARE_ACCOUNT_ID = sensitive(var.cloudflare_account_id)
-        CLOUDFLARE_API_TOKEN = sensitive(var.cloudflare_api_token)
-        SENTRY_DSN = sensitive(var.sentry_dsn)
+      env_vars = {
+        CLOUDFLARE_ACCOUNT_ID = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_account_id)
+        }
+        CLOUDFLARE_API_TOKEN = {
+          type = "plain_text"
+          value = sensitive(var.cloudflare_api_token)
+        }
+        SENTRY_DSN = {
+          type = "plain_text"
+          value = sensitive(try(var.sentry_dsn, ""))
+        }
       }
 
       kv_namespaces = {
