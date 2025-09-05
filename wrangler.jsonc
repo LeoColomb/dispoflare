@@ -3,20 +3,12 @@
   "name": "dispoflare",
   "compatibility_date": "2025-09-01",
   "main": "./workers/index.ts",
-  // "assets": {
-  //   "directory": "./dist",
-  //   "binding": "ASSETS",
-  // },
   "observability": {
     "enabled": true,
   },
   "upload_source_maps": true,
-  "vars": {
-    "CLOUDFLARE_API_TOKEN": "",
-    "CLOUDFLARE_ACCOUNT_ID": "",
-    "SENTRY_DSN": "",
-  },
   "triggers": {
     "crons": ["0 */12 * * *"],
   },
+  "workers_dev": true,
 }
