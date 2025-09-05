@@ -12,7 +12,11 @@ declare module 'react-router' {
   }
 }
 export default defineConfig({
-  plugins: [cloudflare(), reactRouter(), tsconfigPaths()],
+  plugins: [
+    cloudflare({ viteEnvironment: { name: 'ssr' } }),
+    reactRouter(),
+    tsconfigPaths(),
+  ],
   build: {
     sourcemap: true,
   },

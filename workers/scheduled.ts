@@ -1,7 +1,7 @@
 import { Toucan } from 'toucan-js'
 
-import * as rulesApi from 'sdk/rules'
-import * as zonesApi from 'sdk/zones'
+import * as rulesApi from '@/sdk/rules'
+import * as zonesApi from '@/sdk/zones'
 
 function shouldAct(date: Date | string | undefined): Boolean {
   return Boolean(date && new Date(date) <= new Date())

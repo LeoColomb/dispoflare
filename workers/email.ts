@@ -1,6 +1,6 @@
 import { Toucan } from 'toucan-js'
 
-import { list as listRules } from 'sdk/rules'
+import { list as listRules } from '@/sdk/rules'
 
 export const email = async (
   message: EmailMessage,
