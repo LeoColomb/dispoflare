@@ -3,6 +3,9 @@ name: Build
 on:
   push:
 
+permissions:
+  contents: read
+
 jobs:
   app:
     runs-on: ubuntu-latest
