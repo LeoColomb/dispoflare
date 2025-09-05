@@ -1,4 +1,4 @@
-import type { MetaFunction } from 'react-router';
+import type { MetaFunction } from 'react-router'
 
 import {
   Links,
@@ -8,7 +8,7 @@ import {
   isRouteErrorResponse,
   Scripts,
   ScrollRestoration,
-} from 'react-router';
+} from 'react-router'
 
 import '@picocss/pico'
 

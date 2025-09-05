@@ -1,31 +1,14 @@
 {
-  "include": [
-    ".react-router/types/**/*",
-    "pages/app/env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.node.json" },
+    { "path": "./tsconfig.cloudflare.json" }
   ],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "esnext"],
-    "types": ["@react-router/cloudflare", "vite/client"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "moduleResolution": "nodenext",
-    "resolveJsonModule": true,
-    "target": "esnext",
-    "module": "nodenext",
-    "strict": true,
-    "allowJs": true,
+    "checkJs": true,
+    "verbatimModuleSyntax": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": ["./app/*"],
-      "@/*": ["./*"]
-    },
-    "rootDirs": [".", "./.react-router/types"],
-    // Remix takes care of building everything in `remix build`.
+    "strict": true,
     "noEmit": true
   }
 }

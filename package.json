@@ -6,15 +6,14 @@
   "scripts": {
     "build": "react-router build",
     "start": "react-router dev",
-    "deploy": "wrangler pages deploy ./build/client",
+    "deploy": "wrangler deploy",
     "lint": "prettier --check .",
     "format": "prettier --write .",
-    "typecheck": "react-router typegen && tsc",
+    "typecheck": "react-router typegen && tsc -b",
     "typegen": "wrangler types"
   },
   "dependencies": {
     "@picocss/pico": "^2.0.0",
-    "@react-router/cloudflare": "^7.0.0",
     "isbot": "^5.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -22,6 +21,7 @@
     "toucan-js": "^4.0.0"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.0.12",
     "@cloudflare/workers-types": "^4.0.0",
     "@react-router/dev": "^7.0.0",
     "@types/react": "^19.0.0",

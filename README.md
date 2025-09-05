@@ -49,7 +49,7 @@ All the used Cloudflare products offer a [free plan](https://www.cloudflare.com/
 > Please pay attention to all the steps involved in the installation process.
 
 > [!Note]
-> First deployement can be a bit tricky. If you face any problem, don't hesitate to open an issue.
+> First deployment can be a bit tricky. If you face any problem, don't hesitate to open an issue.
 
 - Authorize Workers to use your GitHub account.
 - Enter your **Account ID** (from the previous section)

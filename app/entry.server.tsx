@@ -4,8 +4,8 @@
  * For more information, see https://remix.run/file-conventions/entry.server
  */
 
-import type { EntryContext } from 'react-router';
-import { ServerRouter } from 'react-router';
+import type { EntryContext } from 'react-router'
+import { ServerRouter } from 'react-router'
 import { renderToReadableStream } from 'react-dom/server'
 
 export default async function handleRequest(
