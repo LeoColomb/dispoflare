@@ -43,21 +43,19 @@ All the used Cloudflare products offer a [free plan](https://www.cloudflare.com/
 
 ### Deploy
 
-[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare&authed=true&apiTokenTmpl=%5B%7B%22key%22%3A%22page%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22access%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22email_routing_address%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22email_routing_rule%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22zone%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22zone_settings%22%2C%22type%22%3A%22read%22%7D%5D&apiTokenName=Dispoflare)
-
 > [!IMPORTANT]
 > Please pay attention to all the steps involved in the installation process.
 
 > [!Note]
 > First deployment can be a bit tricky. If you face any problem, don't hesitate to open an issue.
 
+[![Deploy to Cloudflare Pages](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/LeoColomb/dispoflare&authed=true&apiTokenTmpl=%5B%7B%22key%22%3A%22page%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22workers_scripts%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22access%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22email_routing_address%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22email_routing_rule%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22zone%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22zone_settings%22%2C%22type%22%3A%22read%22%7D%5D&apiTokenName=Dispoflare)
+
 - Authorize Workers to use your GitHub account.
-- Enter your **Account ID** (from the previous section)
-- Press the **Create token** button first, to create it, it will redirect you to a token template with all the required permissions pre-configured.
-  Then enter the **API token** in the form.
-- Fork the repository into your personal GitHub account.
-- Enable GitHub Actions.
-- Deploy.
+- Enter your **Account ID** (from the previous section) under the `CLOUDFLARE_ACCOUNT_ID` secret.
+- [Create an appropriate account token](https://dash.cloudflare.com/?to=/:account/api-tokens&permissionGroupKeys=%5B%7B%22key%22%3A%22workers_kv_storage%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22access%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22email_routing_address%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22email_routing_rule%22%2C%22type%22%3A%22edit%22%7D%2C%7B%22key%22%3A%22zone%22%2C%22type%22%3A%22read%22%7D%2C%7B%22key%22%3A%22zone_settings%22%2C%22type%22%3A%22read%22%7D%5D&name=dispoflare) (it will redirect you to a token template with all the required permissions pre-configured).
+  Then enter the **API token** in the form under the `CLOUDFLARE_API_TOKEN` secret.
+- Press **Create and deploy**.
 
 ### Access Policy
 
