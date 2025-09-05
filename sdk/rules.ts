@@ -1,4 +1,4 @@
-import { fetchAPI } from 'sdk/global'
+import { fetchAPI } from './global'
 
 export async function list(zones: Zone[], env: Env): Promise<Array<Rule>> {
   const results = await Promise.all(

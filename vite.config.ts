@@ -1,18 +1,18 @@
 import { reactRouter } from '@react-router/dev/vite'
-import { cloudflareDevProxy } from '@react-router/dev/vite/cloudflare'
+import { cloudflare } from '@cloudflare/vite-plugin'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 declare module 'react-router' {
-  interface AppLoadContext {
+  export interface AppLoadContext {
     cloudflare: {
       env: Env
+      context: ExecutionContext
     }
   }
 }
-
 export default defineConfig({
-  plugins: [cloudflareDevProxy(), reactRouter(), tsconfigPaths()],
+  plugins: [cloudflare(), reactRouter(), tsconfigPaths()],
   build: {
     sourcemap: true,
   },
