@@ -21,7 +21,7 @@
     "toucan-js": "^4.0.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.0.12",
+    "@cloudflare/vite-plugin": "^1.21.1",
     "@cloudflare/workers-types": "^4.0.0",
     "@react-router/dev": "^7.0.0",
     "@types/react": "^19.0.0",
@@ -30,7 +30,7 @@
     "typescript": "^5.0.0",
     "vite": "^7.0.0",
     "vite-tsconfig-paths": "^6.0.0",
-    "wrangler": "^4.0.0"
+    "wrangler": "^4.59.3"
   },
   "engines": {
     "node": ">=18"
