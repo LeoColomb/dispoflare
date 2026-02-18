@@ -138,8 +138,8 @@ export default function Index() {
         <label htmlFor="address">
           Forward to ·{' '}
           <a
-            href="https://dash.cloudflare.com/?zone=email/routing/routes"
-            data-tooltip="Add an routing address"
+            href="https://dash.cloudflare.com/?zone=email/routing/destination-address/new"
+            data-tooltip="Add a destination address"
           >
             ➕
           </a>
