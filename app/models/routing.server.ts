@@ -1,9 +1,9 @@
-import { AppLoadContext } from 'react-router'
+import type { Route } from './+types/_index.js'
 import * as routing from 'sdk/routing.js'
 
 export async function getRoutingZones(
   zones: Zone[] | Promise<Zone[]>,
-  context: AppLoadContext,
+  context: Route.LoaderArgs,
 ): Promise<Array<Zone>> {
   const allZones = await zones
   const routingZones: Array<PromiseSettledResult<Routing>> =
