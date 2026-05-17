@@ -1,9 +1,9 @@
-import { AppLoadContext } from 'react-router'
+import type { Route } from './+types/_index.js'
 import * as rules from 'sdk/rules.js'
 
 export async function getRules(
   zones: Zone[] | Promise<Zone[]>,
-  context: AppLoadContext,
+  context: Route.LoaderArgs,
 ): Promise<Array<Rule>> {
   return rules.list(await zones, context.cloudflare.env)
 }
@@ -22,7 +22,7 @@ export async function createRule(
     expire: string
     remove: Date | boolean
   },
-  context: AppLoadContext,
+  context: Route.LoaderArgs,
 ): Promise<void> {
   if (remove === true) {
     remove = new Date(expire)
@@ -58,14 +58,14 @@ export async function createRule(
 
 export async function dropRule(
   rule: Rule,
-  context: AppLoadContext,
+  context: Route.LoaderArgs,
 ): Promise<void> {
   await rules.remove(rule, context.cloudflare.env)
 }
 
 export async function updateRule(
   rule: Rule,
-  context: AppLoadContext,
+  context: Route.LoaderArgs,
 ): Promise<Rule> {
   return rules.put(rule, context.cloudflare.env)
 }
