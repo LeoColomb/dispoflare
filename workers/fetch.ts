@@ -1,5 +1,7 @@
 import { Toucan, rewriteFramesIntegration } from 'toucan-js'
-import { createRequestHandler } from 'react-router'
+import { createRequestHandler, RouterContextProvider } from 'react-router'
+
+import { cloudflareContext } from '@/app/lib/cloudflare'
 
 const requestHandler = createRequestHandler(
   () => import('virtual:react-router/server-build'),
@@ -20,10 +22,12 @@ export const fetch = async (
   // sentry.configureScope((scope) => scope.setExtras(env))
 
   try {
-    return requestHandler(request, {
-      cloudflare: { env, context },
-    })
+    const loadContext = new RouterContextProvider()
+    loadContext.set(cloudflareContext, { env, context })
+
+    return await requestHandler(request, loadContext)
   } catch (err: any) {
+    console.error('Request handling failed', err)
     sentry.captureException(err)
 
     return new Response(err.message || err.toString(), {

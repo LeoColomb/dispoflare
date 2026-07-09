@@ -1,9 +1,10 @@
 import type { Route } from './+types/_index.js'
+import { getCloudflareEnv } from '~/lib/cloudflare.js'
 export async function getSetting(
   key: string,
   context: Route.LoaderArgs,
 ): Promise<string | null> {
-  return context.cloudflare.env.KV_SETTINGS?.get(key) || null
+  return getCloudflareEnv(context).KV_SETTINGS?.get(key) || null
 }
 
 export async function putSetting(
@@ -11,5 +12,5 @@ export async function putSetting(
   value: string,
   context: Route.LoaderArgs,
 ): Promise<void> {
-  return context.cloudflare.env.KV_SETTINGS.put(key, value)
+  return getCloudflareEnv(context).KV_SETTINGS.put(key, value)
 }

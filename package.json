@@ -24,6 +24,7 @@
     "@cloudflare/vite-plugin": "^1.21.1",
     "@cloudflare/workers-types": "^4.0.0",
     "@react-router/dev": "^8.0.0",
+    "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "prettier": "^3.0.0",

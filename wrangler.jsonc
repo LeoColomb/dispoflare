@@ -3,6 +3,16 @@
   "name": "dispoflare",
   "compatibility_date": "2025-09-01",
   "main": "./workers/index.ts",
+  "secrets": {
+    "required": ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"]
+  },
+  "kv_namespaces": [
+    {
+      "binding": "KV_SETTINGS",
+      "id": "bc3706cf392e49329d4ed7a0335c2a07",
+      "preview_id": "29e3b86f2133488585290ea1658edf4a"
+    }
+  ],
   "observability": {
     "enabled": true,
   },
