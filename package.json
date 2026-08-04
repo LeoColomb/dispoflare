@@ -29,7 +29,7 @@
     "prettier": "^3.0.0",
     "typescript": "^6.0.0",
     "vite": "^8.0.0",
-    "wrangler": "^4.59.3"
+    "wrangler": "^4.118.0"
   },
   "engines": {
     "node": ">=18"
