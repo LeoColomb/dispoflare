@@ -7,13 +7,13 @@
     "required": ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"]
   },
   "observability": {
-		"traces": {
-			"enabled": true
-		},
-		"logs": {
+    "traces": {
+      "enabled": true
+    },
+    "logs": {
       "invocation_logs": true,
-			"enabled": true
-		}
+      "enabled": true
+    }
   },
   "upload_source_maps": true,
   "triggers": {
