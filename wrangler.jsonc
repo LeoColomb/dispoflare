@@ -3,8 +3,17 @@
   "name": "dispoflare",
   "compatibility_date": "2025-09-01",
   "main": "./workers/index.ts",
+  "secrets": {
+    "required": ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"]
+  },
   "observability": {
-    "enabled": true,
+    "traces": {
+      "enabled": true
+    },
+    "logs": {
+      "invocation_logs": true,
+      "enabled": true
+    }
   },
   "upload_source_maps": true,
   "triggers": {
