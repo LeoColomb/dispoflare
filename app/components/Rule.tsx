@@ -1,4 +1,5 @@
 import { Milestone } from './Milestone.js'
+import { Form } from 'react-router'
 
 export const Rule = ({ rule }: { rule: Rule }) => {
   return (
@@ -33,15 +34,19 @@ export const Rule = ({ rule }: { rule: Rule }) => {
         <Milestone name="📨 Activate" date={rule.data?.activate} />
         <Milestone name="🗃️ Expire" date={rule.data?.expire} />
         <Milestone name="⏲️ Deprecate" date={rule.data?.deprecate} />
-        <Milestone name="🗑️ Remove" date={rule.data?.remove} />
+        <Milestone name="🧹 Remove" date={rule.data?.remove} />
       </article>
-      {/* <Form method="delete">
-        <input type="text" name="zone" hidden value={rule.zone.id} readOnly />
-        <input type="text" name="rule" hidden value={rule.tag} readOnly />
-        <button type="submit" role="button" className="secondary">
-          🗑️
+      <Form method="delete">
+        <input type="hidden" name="zone" value={rule.zone.id} readOnly />
+        <input type="hidden" name="rule" value={rule.tag} readOnly />
+        <button
+          type="submit"
+          className="secondary"
+          aria-label={`Delete ${rule.matchers[0]?.value}`}
+        >
+          🗑️ Delete
         </button>
-      </Form> */}
+      </Form>
     </details>
   )
 }
