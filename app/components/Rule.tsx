@@ -34,7 +34,7 @@ export const Rule = ({ rule }: { rule: Rule }) => {
         <Milestone name="📨 Activate" date={rule.data?.activate} />
         <Milestone name="🗃️ Expire" date={rule.data?.expire} />
         <Milestone name="⏲️ Deprecate" date={rule.data?.deprecate} />
-        <Milestone name="🗑️ Remove" date={rule.data?.remove} />
+        <Milestone name="🧹 Remove" date={rule.data?.remove} />
       </article>
       <Form method="delete">
         <input type="hidden" name="zone" value={rule.zone.id} readOnly />
