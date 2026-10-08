@@ -1,12 +1,27 @@
 import type { Route } from './+types/manage.js'
 
 import { Suspense } from 'react'
-import { Await, useLoaderData } from 'react-router'
+import { Await, redirect, useLoaderData } from 'react-router'
 
-import { getRules } from '~/models/rule.server.js'
+import { dropRule, getRules } from '~/models/rule.server.js'
 import { getZones } from '~/models/zone.server.js'
 
 import { Rule } from '~/components/Rule.js'
+
+export async function action({ request, context }: Route.ActionArgs) {
+  const formData = await request.formData()
+
+  const zone = formData.get('zone')
+  const tag = formData.get('rule')
+
+  if (typeof zone !== 'string' || typeof tag !== 'string') {
+    throw new Response('Missing zone or rule', { status: 400 })
+  }
+
+  await dropRule({ tag, zone: { id: zone } } as Rule, context)
+
+  return redirect('/manage')
+}
 
 export async function loader({ context }: Route.LoaderArgs) {
   return {
