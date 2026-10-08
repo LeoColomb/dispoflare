@@ -42,7 +42,7 @@ export const Rule = ({ rule }: { rule: Rule }) => {
         <button
           type="submit"
           className="secondary"
-          aria-label={`Delete ${rule.matchers[0].value}`}
+          aria-label={`Delete ${rule.matchers[0]?.value}`}
         >
           🗑️ Delete
         </button>
